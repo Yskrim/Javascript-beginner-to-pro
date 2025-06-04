@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>RPS</title>
+    </head>
+    <body>
+        <div class="container">
+            <button id="playBtn" >Play</button>
+        </div>
+
+        <script>
+
+            let player;
+            let computer;
+
+            let button = document.getElementById('playBtn');
+            button.addEventListener('click', () => {
+
+                player = Math.floor(Math.random() * 3);
+                computer = Math.floor(Math.random() * 3);
+
+
+                console.log(findWinner(player, computer) + '\n' +'player: ' + rockPaperScissors(player) + '\ncomputer: ' +rockPaperScissors(computer));
+
+                
+            })
+
+            
+            function rockPaperScissors(num){
+                let result;
+                if(num === 0){
+                    result = 'rock';
+                } else if (num === 1){
+                    result = 'paper';
+                } else if (num === 2){
+                    result = 'scissors';
+                } 
+                return result;
+            }
+
+            function findWinner(player, computer){
+                if(player === 0 && computer === 2){
+                    return 'player won'
+                } else if (player === 1 && computer === 0) {
+                    return 'player won'
+
+                } else if (player === 2 && computer === 1){
+                    return 'player won'
+
+                } else if (player === computer){
+                    return 'draw'
+
+                } else {
+                    return 'computer won'
+                }
+            }
+
+
+
+        </script>
+    </body>
+</html>
