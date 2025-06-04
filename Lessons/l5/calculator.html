@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="style.css">
+    <style>
+        button {
+            width: 30px;
+            padding: 6px;
+            margin: 3px;
+        }
+    </style>
+  <title>Calculator</title>
+</head>
+<body>
+    <h1>Calculator</h1>
+    <div>
+        <button class="button" id="screen" style="width:150px; height:40px;" disabled> </button>
+    </div>
+    <div>
+        <button class="button" id="1">1</button>
+        <button class="button" id="2">2</button>
+        <button class="button" id="3">3</button>
+        <button class="button" id="10">+</button>
+    </div>
+    <div>
+        <button class="button" id="5">5</button>
+        <button class="button" id="6">6</button>
+        <button class="button" id="7">7</button>
+        <button class="button" id="11">-</button>
+    </div>
+    <div>
+        <button class="button" id="7">7</button>
+        <button class="button" id="8">8</button>
+        <button class="button" id="9">9</button>
+        <button class="button" id="12">*</button>
+    </div>
+    <div>
+        <button class="button" id="0">0</button>
+        <button class="button" id="15">.</button>
+        <button class="button" id="14">=</button>
+        <button class="button" id="13">/</button>
+    </div>
+    <div>
+        <button class="button" id="clear" style="width:150px"> CLEAR</button>
+    </div>
+
+   
+    <script>
+        
+
+        button.addEventListener('mousedown', () => {
+            button.innerHTML = "WHAT HAVE YOU DONE??!"
+        });
+        button.addEventListener('mouseup', () => {
+            button.innerHTML = "DONT PRESS ME!";
+        });
+        
+    </script>
+  </div>
+</body>
+</html>
