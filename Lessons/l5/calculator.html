@@ -12,6 +12,11 @@
             margin: 3px;
         }
     </style>
+
+    <script>
+
+    </script>
+
   <title>Calculator</title>
 </head>
 <body>
@@ -23,40 +28,53 @@
         <button class="button" id="1">1</button>
         <button class="button" id="2">2</button>
         <button class="button" id="3">3</button>
-        <button class="button" id="10">+</button>
+        <button class="button" id="+">+</button>
     </div>
     <div>
+        <button class="button" id="4">4</button>
         <button class="button" id="5">5</button>
         <button class="button" id="6">6</button>
-        <button class="button" id="7">7</button>
-        <button class="button" id="11">-</button>
+        <button class="button" id="-">-</button>
     </div>
     <div>
         <button class="button" id="7">7</button>
         <button class="button" id="8">8</button>
         <button class="button" id="9">9</button>
-        <button class="button" id="12">*</button>
+        <button class="button" id="*">*</button>
     </div>
     <div>
         <button class="button" id="0">0</button>
-        <button class="button" id="15">.</button>
-        <button class="button" id="14">=</button>
-        <button class="button" id="13">/</button>
+        <button class="button" id=".">.</button>
+        <button class="button" id="=">=</button>
+        <button class="button" id="/">/</button>
     </div>
     <div>
-        <button class="button" id="clear" style="width:150px"> CLEAR</button>
+        <button class="button" onclick="calculation = ''" id=" " style="width:150px"> CLEAR</button>
     </div>
 
-   
-    <script>
-        
 
-        button.addEventListener('mousedown', () => {
-            button.innerHTML = "WHAT HAVE YOU DONE??!"
+    <script>
+        const buttons = document.querySelectorAll('button');
+
+        buttons.forEach(button => {
+            button.addEventListener('click', function (){
+                if(button.id === '='){
+                    let result = eval(calculation)
+                    screen.innerHTML = `${calculation} = ${result}`;
+                    calculation = result
+                } else {
+                    calculation += button.id
+                    console.log('button ' + button.innerHTML + ' pressed');
+                    screen.innerHTML = calculation;
+                }
+
+                
+             });
         });
-        button.addEventListener('mouseup', () => {
-            button.innerHTML = "DONT PRESS ME!";
-        });
+
+        let calculation = '';
+
+        let screen = document.getElementById("screen");
         
     </script>
   </div>
