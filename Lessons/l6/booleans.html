@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>RPS</title>
+        <title>Rock Paper Scissors</title>
     </head>
     <body>
         <div class="container">
@@ -16,11 +16,11 @@
             let player;
             let computer;
             
-            let score = document.getElementById("score")
+            let score = document.getElementById("score");
             let playerTag = document.getElementById('playerTag');
-            let tempP = playerTag.innerHTML
+            let tempP = playerTag.innerHTML;
             let computerTag = document.getElementById('computerTag');
-            let tempC = computerTag.innerHTML
+            let tempC = computerTag.innerHTML;
 
             let button = document.getElementById('playBtn');
             button.addEventListener('click', () => {
@@ -30,11 +30,11 @@
 
 
                 console.log(findWinner(player, computer) + '\n' +'player: ' + rockPaperScissors(player) + '\ncomputer: ' +rockPaperScissors(computer));
-                playerTag.innerHTML = tempP + rockPaperScissors(player)
-                computerTag.innerHTML = tempC + rockPaperScissors(computer)
-                score.innerHTML = findWinner(player, computer)
+                playerTag.innerHTML = tempP + rockPaperScissors(player);
+                computerTag.innerHTML = tempC + rockPaperScissors(computer);
+                score.innerHTML = findWinner(player, computer);
 
-            })
+            });
 
             
             function rockPaperScissors(num){
@@ -51,22 +51,20 @@
 
             function findWinner(player, computer){
                 if(player === 0 && computer === 2){
-                    return 'player won'
+                    return 'player won';
                 } else if (player === 1 && computer === 0) {
-                    return 'player won'
+                    return 'player won';
 
                 } else if (player === 2 && computer === 1){
-                    return 'player won'
+                    return 'player won';
 
                 } else if (player === computer){
-                    return 'draw'
+                    return 'draw';
 
                 } else {
-                    return 'computer won'
+                    return 'computer won';
                 }
             }
-
-
 
         </script>
     </body>

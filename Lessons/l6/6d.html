@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Discount Calculator</title>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Discount Calculator</h1>
+            <input type="number" id="price" placeholder="Price">
+            <input type="number" id="age" placeholder="Age">
+            <button id="calculate">Calculate</button>
+            <h1 id="result"></h1>
+        </div>
+
+        <script>
+            let priceInput = document.getElementById("price");
+            let ageInput = document.getElementById("age");
+            let button = document.getElementById("calculate");
+            
+            button.addEventListener("click", calculateDiscount)
+            priceInput.addEventListener("input", calculateDiscount)
+            ageInput.addEventListener("input", calculateDiscount)
+
+            function calculateDiscount(){
+                    let price = document.getElementById("price");
+                    let age = document.getElementById("age");
+                    let result = document.getElementById("result");
+    
+                    if(age.value >= 65 || age.value <= 6){
+                        result.innerHTML = price.value/2;
+                    } else {
+                        result.innerHTML = price.value * age.value / 100;
+                    }
+                };
+        
+            
+
+
+        </script>
+    </body>
+</html>
