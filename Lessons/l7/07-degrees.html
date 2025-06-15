@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head></head>
+    <body>
+        <p>Celsius to Fahrenheit degrees converter</p>
+        <select id="select">
+            <option id="sel-option-cel">Celsius</option>
+            <option id="sel-option-far">Fahrenheit</option>
+        </select>
+        <input id="sel-input" placeholder="Input">
+        <button onclick="calculate()"> calculate</button>
+        <select id="result">
+            <option id="res-option-cel">Celcius</option>
+            <option id="res-option-far">Fahrenheit</option>
+        </select>
+        <input id="res-input" placeholder="Output">
+        <script>
+
+            function calculate(){
+                let sel_option = document.getElementById('select');
+                let sel_input = document.getElementById('sel-input')
+                let res_input = document.getElementById('res-input')
+                let res_option = document.getElementById('result');
+
+
+                if(sel_option.value == 'Fahrenheit' && res_option.value == 'Celcius'){
+                    res_input.value = 5 * (sel_input.value - 32) / 9 ;
+                }
+                else if(sel_option.value == 'Celsius' && res_option.value == 'Fahrenheit'){
+                    res_input.value = (sel_input.value * 9 / 5) + 32;
+                } else {
+                    res_input.value = sel_input.value;
+                }
+
+
+            }
+
+        </script>
+    </body>
+</html>

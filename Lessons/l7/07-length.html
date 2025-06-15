@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head></head>
+    <body>
+        <p>Convert length</p>
+        <input id="input" placeholder="input">
+        <select id="input-select">
+            <option>km</option>
+            <option>miles</option>
+            <option>ft</option>
+        </select>
+        <button onclick="convertDistance()">Convert</button>
+        <input id="output" placeholder="output">
+        <select id="output-select">
+            <option>km</option>
+            <option>miles</option>
+            <option>ft</option>
+        </select>
+
+        <script>
+            let input = document.getElementById('input');
+            input.addEventListener('input', convertDistance);
+
+            let input_select = document.getElementById('input-select');
+            let output = document.getElementById('output');
+            output.addEventListener('input', convertDistance);
+            
+            let output_select = document.getElementById('output-select');
+
+            function convertDistance() {
+                if(input_select.value == 'km' && output_select.value == 'miles'){
+                    output.value = input.value * 1.6;
+                } 
+                else if(input_select.value == 'km' && output_select.value == 'ft'){
+                    output.value = input.value * 3281;
+                }
+                else if(input_select.value == 'miles' && output_select.value == 'km'){
+                    output.value = input.value / 1.6;
+                }
+                else if(input_select.value == 'miles' && output_select.value == 'ft'){
+                    output.value = input.value * 5280;
+                } 
+                else if(input_select.value == 'ft' && output_select.value == 'km'){
+                    output.value = input.value / 3281;
+                } 
+                else if(input_select.value == 'ft' && output_select.value == 'miles'){
+                    output.value = input.value / 5280;
+                } else {
+                    output.value = input.value;
+                }
+            }
+
+        </script>
+    </body>
+</html>

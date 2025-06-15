@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>RPS</title>
+    </head>
+    <body>
+        <p>Rock Paper Scissors</p>
+        <button id="rock" onclick="playGame(this)">Rock</button>
+        <button id="paper" onclick="playGame(this)">Paper</button>
+        <button id="scissors" onclick="playGame(this)">Scissors</button>
+        <button onclick="resetScore()">Reset score</button>
+
+        <script>
+            let score = JSON.parse(localStorage.getItem('score')) || {
+                    wins: 0,
+                    losses: 0,
+                    ties: 0,
+                }
+            
+
+            function resetScore() {
+                score.wins = 0;
+                score.losses = 0;
+                score.ties = 0;
+                localStorage.removeItem('score');
+            }
+
+
+            
+            function playGame(button) {
+                let computerMove = pickComputerMove()
+                let result = findWinner(button.id, computerMove);
+                localStorage.setItem('score', JSON.stringify(score));
+                alert(result + 
+                '\nplayer: ' + button.id + '\ncomputer: ' + computerMove + '\nwins:' + score.wins + 
+                ' losses: ' + score.losses + 
+                ' ties: ' + score.ties);
+            }
+            
+            function pickComputerMove() {
+                let move = Math.floor(Math.random() * 3);
+                move = rockPaperScissors(move);
+                return move;
+            }
+            
+            function rockPaperScissors(num){
+                let result;
+                if(num === 0){
+                    result = 'rock';
+                } else if (num === 1){
+                    result = 'paper';
+                } else if (num === 2){
+                    result = 'scissors';
+                } 
+                return result;
+            }
+            
+            function findWinner(player, computer){
+                if(player === 'rock' && computer === 'scissors'){
+                    score.wins++;
+                    return 'player won';
+                } else if (player === 'paper' && computer === 'rock') {
+                    score.wins++;
+                    return 'player won';
+                    
+                } else if (player === 'scissors' && computer === 'paper'){
+                    score.wins++;
+                    return 'player won';
+                    
+                } else if (player === computer){
+                    score.ties++;
+                    return 'draw';
+                    
+                } else {
+                    score.losses++;
+                    return 'computer won';
+                }
+            }
+
+            
+        </script>
+    </body>
+</html>

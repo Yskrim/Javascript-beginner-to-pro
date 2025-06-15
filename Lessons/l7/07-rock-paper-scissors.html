@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>RPS</title>
+    </head>
+    <body>
+        <p>Rock Paper Scissors</p>
+        <button id="rock" onclick="playGame(this)">Rock</button>
+        <button id="paper" onclick="playGame(this)">Paper</button>
+        <button id="scissors" onclick="playGame(this)">Scissors</button>
+
+        <script>
+            function playGame(button) {
+                let computerMove = pickComputerMove()
+                let result = findWinner(button.id, computerMove);
+                alert(result + '\nplayer: ' + button.id + '\ncomputer: ' + computerMove);
+            }
+
+            function pickComputerMove() {
+                let move = Math.floor(Math.random() * 3);
+                move = rockPaperScissors(move);
+                return move;
+            }
+
+            function rockPaperScissors(num){
+                let result;
+                if(num === 0){
+                    result = 'rock';
+                } else if (num === 1){
+                    result = 'paper';
+                } else if (num === 2){
+                    result = 'scissors';
+                } 
+                return result;
+            }
+
+            function findWinner(player, computer){
+                if(player === 'rock' && computer === 'scissors'){
+                    return 'player won';
+                } else if (player === 'paper' && computer === 'rock') {
+                    return 'player won';
+
+                } else if (player === 'scissors' && computer === 'paper'){
+                    return 'player won';
+
+                } else if (player === computer){
+                    return 'draw';
+
+                } else {
+                    return 'computer won';
+                }
+            }
+        </script>
+    </body>
+</html>

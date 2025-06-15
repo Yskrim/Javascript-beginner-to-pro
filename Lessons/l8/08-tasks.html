@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+
+        <title>08 Tasks</title>
+    </head>
+    <body>
+        <script>
+            const product = {
+                name: 'basketball',
+                price: 2095
+            };
+            console.log(product);
+            
+            product.price += 500;
+            console.log(product);
+            
+            product['delivery-time'] = '3 days';
+            console.log(product);
+
+            
+            const product1 = {
+                name: 'basketball',
+                price: 2095
+            };
+            const product2 = {
+                name: 'tennis ball',
+                price: 2595
+            };
+            comparePrices(product1, product2);
+            console.log(isSame(product, product1));
+
+            function comparePrices(a,b) {
+                if(a.price < b.price){
+                    console.log(a.name + ' is cheaper');
+                } else if (a.price > b.price) {
+                    console.log(b.name + ' is cheaper');
+                } else {
+                    console.log('equal');
+                }
+            }
+
+            function isSame(a, b){
+                if(a.price === b.price && a.name === b.name) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+            </script>
+    </body>
+</html>

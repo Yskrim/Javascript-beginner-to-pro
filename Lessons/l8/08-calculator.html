@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" href="style.css">
+        <style>
+            button {
+                width: 30px;
+                padding: 6px;
+                margin: 3px;
+            }
+        </style>
+
+    <title>Calculator</title>
+    </head>
+    <body>
+        <h1>Calculator</h1>
+        <div>
+            <button class="button" id="screen" style="width:150px; height:40px;" disabled> </button>
+        </div>
+        <div>
+            <button class="button" id="1">1</button>
+            <button class="button" id="2">2</button>
+            <button class="button" id="3">3</button>
+            <button class="button" id="+">+</button>
+        </div>
+        <div>
+            <button class="button" id="4">4</button>
+            <button class="button" id="5">5</button>
+            <button class="button" id="6">6</button>
+            <button class="button" id="-">-</button>
+        </div>
+        <div>
+            <button class="button" id="7">7</button>
+            <button class="button" id="8">8</button>
+            <button class="button" id="9">9</button>
+            <button class="button" id="*">*</button>
+        </div>
+        <div>
+            <button class="button" id="0">0</button>
+            <button class="button" id=".">.</button>
+            <button class="button" id="=">=</button>
+            <button class="button" id="/">/</button>
+        </div>
+        <div>
+            <button class="button" onclick="calculation = ''" id=" " style="width:150px"> CLEAR</button>
+        </div>
+
+
+        <script>
+            const buttons = document.querySelectorAll('button');
+
+            let screen = document.getElementById("screen");
+
+            // adds localStorage and stores the last computed result
+            let calculation = localStorage.getItem('value');
+            screen.innerHTML = calculation || '';
+
+            buttons.forEach(button => {
+                button.addEventListener('click', () => updateCartQuantity(button));
+            });
+
+            function updateCartQuantity(button){
+                if(button.id === '='){
+                    let result = eval(calculation)
+                    screen.innerHTML = `${calculation} = ${result}`;
+                    calculation = result;
+                    /*
+                    if(result >= 100) {
+                        alert('Cart is full')
+                        }
+                        */
+                    } else {
+                        calculation += button.id
+                        console.log('button ' + button.innerHTML + ' pressed');
+                        screen.innerHTML = calculation;
+                    } 
+                    localStorage.setItem('value', calculation);
+                }
+                
+            
+        </script>
+    </div>
+    </body>
+</html>

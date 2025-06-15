@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head></head>
+  <body>
+    <button sv="my-btn">heads</button>
+    <button sv="my-btn">tails</button>
+    <br>
+    <button onclick="resetScore()">Reset</button>
+    <script>
+
+        const buttons = document.querySelectorAll('[sv="my-btn"]');
+        for(let button of buttons){
+            button.addEventListener('click', () => flipCoin(button));
+        };
+
+        let score = JSON.parse(localStorage.getItem('score')) || {
+            wins: 0,
+            losses: 0,
+        };
+        
+        function resetScore() {
+            score.wins = 0;
+            score.losses = 0;
+            localStorage.removeItem('score');
+        };
+
+        function flipCoin(button) {
+            const randomNumber = Math.random();
+            console.log(randomNumber);
+            
+            const result = randomNumber < 0.5 ? 'heads' : 'tails';
+
+            
+            if (button.innerHTML === result) {
+                score.wins++;
+                alert('You win' + 
+                '\nYou guessed: ' + button.innerHTML + 
+                '\nResult is: ' + result +
+                '\nWins: ' + score.wins +
+                ', Losses: ' + score.losses);
+            } else {
+                score.losses++;
+                alert('You lose' + 
+                '\nYou guessed: ' + button.innerHTML + 
+                '\nResult is: ' + result +
+                '\nWins: ' + score.wins +
+                ', Losses: ' + score.losses);
+            }
+
+            localStorage.setItem('score', JSON.stringify(score));
+        }
+
+    </script>
+  </body>
+</html>

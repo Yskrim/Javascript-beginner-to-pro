@@ -56,9 +56,15 @@
     <script>
         const buttons = document.querySelectorAll('button');
 
+        let screen = document.getElementById("screen");
+        let calculation = '';
+
         buttons.forEach(button => {
-            button.addEventListener('click', function (){
-                if(button.id === '='){
+            button.addEventListener('click', () => updateCartQuantity(button));
+        });
+
+        function updateCartQuantity(button){
+            if(button.id === '='){
                     let result = eval(calculation)
                     screen.innerHTML = `${calculation} = ${result}`;
                     calculation = result
@@ -66,15 +72,9 @@
                     calculation += button.id
                     console.log('button ' + button.innerHTML + ' pressed');
                     screen.innerHTML = calculation;
-                }
+                } 
+        }
 
-                
-             });
-        });
-
-        let calculation = '';
-
-        let screen = document.getElementById("screen");
         
     </script>
   </div>
