@@ -1,61 +1,69 @@
 <!DOCTYPE html>
 <html>
-    <head>
+  <head>
+    <title>DOM-projects</title>
+  </head>
+  <body>
+    <p>Amazon Shipping Calculator</p>
+    <p>Orders under $40 = +$10 shipping.</p>
+    <p>Orders over $40 = FREE shipping.</p>
+    <input class="js-input" onkeydown="
+        handleCostkeyDown(event);
+    " placeholder="Cost of order">
+    <button class="js-button">Calculate</button>
+    <p class="js-output"></p>
 
-    </head>
-    <body>
-        <button>9a</button>
-        <button class="js-btn">9b</button>
-        
-        <br>
-        <br>
+    <br>
+    <br>
+    <input onkeyup="updateTypingOutput()" class="js-typing-input" placeholder="type something">
+    <p class="js-typing-output"></p>
+    <script>
 
-        <button>heads</button>
-        <button>tails</button>
-        <p class="js-heads-tails-output"></p>
+        function updateTypingOutput() {
+            const inputElement = document.querySelector('.js-typing-input');
+            document.querySelector('.js-typing-output')
+                .innerHTML = inputElement.value;
+        }
 
-        <br>
-        <br>
-        
-        <input class="js-name-input">
-        <button>Submit</button>
-        <p class="js-name-output"></p>
-        <script>
-            console.log(document.querySelector('button'))
-
-            document.querySelector('.js-btn').innerHTML += ' done';
-
-            const buttons = document.querySelectorAll('button');
-
-            let input = document.querySelector('.js-name-input');
-            let output = document.querySelector('.js-name-output');
-
-            input.addEventListener('keydown', (event) => {
-                if(event.key === 'Enter') {
-                    updateName();
-                }
-            })
-
-            for (let button of buttons) {
-                button.addEventListener('click', () => {
-                    headsOrTailsOutput(button);
-                    if(button.innerHTML === 'Submit'){
-                        updateName();
-                    }
-                });
-            };
-
-            function headsOrTailsOutput(button) {
-                if(button.innerHTML === 'heads'){
-                    document.querySelector('.js-heads-tails-output').innerHTML = 'you chose: ' + button.innerHTML;
-                } else if(button.innerHTML === 'tails'){
-                    document.querySelector('.js-heads-tails-output').innerHTML = 'you chose: ' + button.innerHTML;
-                }
-            }
-
-            function updateName(){
-                output.innerHTML = `Your name is: ${input.value}`;
+        function handleCostkeyDown(event){
+            if (event.key === 'Enter'){
+            calculateTotal();
             }   
-        </script>
-    </body>
-</html>
+        }
+
+        let button = document.querySelector('.js-button');
+        let input = document.querySelector('.js-input');
+        let output = document.querySelector('.js-output');
+
+        let typingInput = document.querySelector('.js-typing-input');
+        let typingOutput = document.querySelector('.js-typing-output');
+
+
+        function type(event) {
+            if(event.type === 'keyup'){
+                typingOutput.innerHTML = typingInput.value;
+            }
+        }
+
+        button.addEventListener('click', () => calculateTotal());
+        input.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                calculateTotal();
+            }
+        });
+        
+        function calculateTotal(){
+            let cost = Number(input.value) * 100;
+
+            if(cost >= 4000) {
+                output.innerText= `$${cost / 100}`;
+            } else if (cost > 0) {
+                output.innerText = `$${(cost + 1000)/100}`;
+            } else {
+                output.innerText = ''; 
+            }
+        }
+        
+    </script>
+  </body>
+</html> 
