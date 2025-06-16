@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>RPS</title>
+    </head>
+    <body>
+        <p>Rock Paper Scissors</p>
+        <button id="rock" onclick="playGame(this)">Rock</button>
+        <button id="paper" onclick="playGame(this)">Paper</button>
+        <button id="scissors" onclick="playGame(this)">Scissors</button>
+        
+        <p class="js-result"></p>
+        <p class="js-moves"></p>
+        <p class="js-score"></p>
+
+        <button onclick="resetScore()">Reset score</button>
+
+        <script>
+            let score = JSON.parse(localStorage.getItem('score')) || {
+                    wins: 0,
+                    losses: 0,
+                    ties: 0,
+                }
+
+            updateScore();
+            
+
+            function resetScore() {
+                score.wins = 0;
+                score.losses = 0;
+                score.ties = 0;
+                localStorage.removeItem('score');
+                updateScore();
+            }
+
+            function updateScore() {
+                document.querySelector('.js-score').innerHTML = `Wins: ${score.wins}, Losses: ${score.losses}, Ties: ${score.ties}`;
+            }
+
+            function updateMoves(button, computerMove) {
+                document.querySelector('.js-moves').innerHTML = `Player: ${button.id}, Computer: ${computerMove}`;
+            }
+
+            function updateResult(result) {
+                document.querySelector('.js-result').innerHTML = result;
+            }
+
+
+            
+            function playGame(button) {
+                let computerMove = pickComputerMove()
+                let result = findWinner(button.id, computerMove);
+                localStorage.setItem('score', JSON.stringify(score));
+
+                updateScore();
+                updateMoves(button,computerMove);
+                updateResult(result);
+
+                /*
+                alert(result + 
+                '\nplayer: ' + button.id + '\ncomputer: ' + computerMove + '\nwins:' + score.wins + 
+                ' losses: ' + score.losses + 
+                ' ties: ' + score.ties);
+                */
+            }
+            
+            function pickComputerMove() {
+                let move = Math.floor(Math.random() * 3);
+                move = rockPaperScissors(move);
+                return move;
+            }
+
+            function convertValue(str) {
+                if(str === 'rock'){
+                    str = '👊'
+                } else if (str === 'paper') {
+                    str = '🤚'
+                } else {
+                    str = '✌️'
+                }
+            }
+            
+            function rockPaperScissors(num){
+                let result;
+                if(num === 0){
+                    result = 'rock';
+                } else if (num === 1){
+                    result = 'paper';
+                } else if (num === 2){
+                    result = 'scissors';
+                } 
+                return result;
+            }
+            
+            function findWinner(player, computer){
+                if(player === 'rock' && computer === 'scissors'){
+                    score.wins++;
+                    return 'Player won';
+                } else if (player === 'paper' && computer === 'rock') {
+                    score.wins++;
+                    return 'Player won';
+                    
+                } else if (player === 'scissors' && computer === 'paper'){
+                    score.wins++;
+                    return 'Player won';
+                    
+                } else if (player === computer){
+                    score.ties++;
+                    return 'Draw';
+                    
+                } else {
+                    score.losses++;
+                    return 'Computer won';
+                }
+            }
+
+            
+        </script>
+    </body>
+</html>

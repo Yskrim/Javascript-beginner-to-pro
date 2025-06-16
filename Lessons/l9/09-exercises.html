@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+    <body>
+        <button>9a</button>
+        <button class="js-btn">9b</button>
+        
+        <br>
+        <br>
+
+        <button>heads</button>
+        <button>tails</button>
+        <p class="js-heads-tails-output"></p>
+
+        <br>
+        <br>
+        
+        <input class="js-name-input">
+        <button>Submit</button>
+        <p class="js-name-output"></p>
+        <script>
+            console.log(document.querySelector('button'))
+
+            document.querySelector('.js-btn').innerHTML += ' done';
+
+            const buttons = document.querySelectorAll('button');
+
+            let input = document.querySelector('.js-name-input');
+            let output = document.querySelector('.js-name-output');
+
+            input.addEventListener('keydown', (event) => {
+                if(event.key === 'Enter') {
+                    updateName();
+                }
+            })
+
+            for (let button of buttons) {
+                button.addEventListener('click', () => {
+                    headsOrTailsOutput(button);
+                    if(button.innerHTML === 'Submit'){
+                        updateName();
+                    }
+                });
+            };
+
+            function headsOrTailsOutput(button) {
+                if(button.innerHTML === 'heads'){
+                    document.querySelector('.js-heads-tails-output').innerHTML = 'you chose: ' + button.innerHTML;
+                } else if(button.innerHTML === 'tails'){
+                    document.querySelector('.js-heads-tails-output').innerHTML = 'you chose: ' + button.innerHTML;
+                }
+            }
+
+            function updateName(){
+                output.innerHTML = `Your name is: ${input.value}`;
+            }   
+        </script>
+    </body>
+</html>

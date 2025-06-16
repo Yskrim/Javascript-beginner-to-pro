@@ -1,31 +1,59 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>DOM</title>
+    <title>DOM-projects</title>
   </head>
   <body>
-    <button class="my-btn">hello</button>
-    <button class="js-button">Second button</button>
+    <p>YouTube subscribe button</p>
+    <button onclick="subscribe(this)"class=js-subscribe-button-2>Subscribe</button>
+    <br>
+    <br>
+
+    <p>Amazon Shipping Calculator</p>
+    <p>Orders under $40 = +$10 shipping.</p>
+    <p>Orders over $40 = FREE shipping.</p>
+    <input class="js-input" onkeydown="
+        handleCostkeyDown(event);
+    " placeholder="Cost of order">
+    <button class="js-button">Calculate</button>
+    <p class="js-output"></p>
+
     <script>
-        /*
-        console.log(document);
-        document.body.innerHTML = 'hello';
-        document.title = "Good job!";
-        document.title = 'Changed';
-        console.log(document.title);
 
-        console.log(document.body);
-        console.log(typeof document.body);
 
-        console.log(document.body.innerHTML);
-        document.body.innerHTML = '<button>Changed </button>';
-        */
 
-        console.log(document.querySelector('button').innerHTML);
-        document.querySelector('.my-btn')
-            .innerHTML = 'first';
-        const buttonElement = document.querySelector('[class=js-button]');
-        console.log(buttonElement);
+        function handleCostkeyDown(event){
+            if (event.key === 'Enter'){
+            calculateTotal();
+            }   
+        }
+        
+        function subscribe(btn){
+            btn.innerText === 'Subscribe' ? btn.innerText ='Subscribed' : btn.innerText = 'Subscribe';
+        }
+
+        let button = document.querySelector('.js-button');
+        let input = document.querySelector('.js-input');
+
+        button.addEventListener('click', () => calculateTotal());
+        input.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                calculateTotal();
+            }
+        });
+
+        let output = document.querySelector('.js-output');
+        
+        function calculateTotal(){
+            
+            if(input.value >= 40) {
+                output.innerText= `$${input.value}`;
+            } else if (input.value > 0) {
+                output.innerText = `$${Number(input.value) + 10}`;
+            } else {
+                output.innerText = ''; 
+            }
+        }
     </script>
   </body>
 </html> 

@@ -26,6 +26,27 @@
             .innerHTML = 'first';
         const buttonElement = document.querySelector('[class=js-button]');
         console.log(buttonElement);
+
+        document.addEventListener('keydown', (e) => {
+            console.log(e);
+        })
+        document.addEventListener('mousedown', (e) => {
+            console.log(e);
+        })
+        document.addEventListener('mouseup', (e) => {
+            console.log(e);
+        })
+        document.addEventListener('mousemove', (e) => {
+            console.log(e.clientX, e.clientY);
+        });
+        window.addEventListener('scroll', (e) => {
+            console.log('Scrolled!');
+        });
+
+        console.log('25'- 5);
+        console.log('25'+ 5);
+        console.log(window);
+        window.console.log('window');
     </script>
   </body>
 </html> 
