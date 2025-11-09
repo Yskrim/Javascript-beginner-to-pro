@@ -22,14 +22,19 @@
             ageInput.addEventListener("input", calculateDiscount)
 
             function calculateDiscount(){
-                    let price = document.getElementById("price");
-                    let age = document.getElementById("age");
+                    let price = parseFloat(priceInput.value) || 0;
+                    let age = parseFloat(ageInput.value) || 0;
                     let result = document.getElementById("result");
     
-                    if(age.value >= 65 || age.value <= 6){
-                        result.innerHTML = price.value/2;
+                    if (!priceInput.value || !ageInput.value) {
+                        result.innerHTML = "";
+                        return;
+                    }
+    
+                    if(age >= 65 || age <= 6){
+                        result.innerHTML = price / 2;
                     } else {
-                        result.innerHTML = price.value * age.value / 100;
+                        result.innerHTML = price * age / 100;
                     }
                 };
         

@@ -1,0 +1,54 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>RPS</title>
+    </head>
+    <body>
+        <h1 id="display">Rock Paper Scissors</h1>
+        <p id="result">Press any button to play</p>
+        <button class="button">Rock</button>
+        <button class="button">Paper</button>
+        <button class="button">Scissors</button>
+
+        <script>
+            const display = document.getElementById('display')
+            const result = document.getElementById('result')
+            const buttons = document.querySelectorAll('button')
+
+            function playRPS(){
+                const result = Math.random() * 3
+                if(result <= 1){
+                    return 'Rock'
+                }else if(result > 1 && result <= 2){
+                    return 'Paper'
+                }else{
+                    return "Scissors"
+                }
+
+            }
+
+            function isWon(a,b){
+                return (a === 'Rock' && b === 'Scissors') || 
+                    (a === 'Paper' && b === 'Rock') || 
+                    (a === 'Scissors' && b === 'Paper')
+            }
+
+            buttons.forEach(button => {
+                button.addEventListener('click', () => { 
+                    const player = button.innerHTML
+                    const opponent = playRPS()
+                    display.innerHTML = `${player} -- ${opponent}`
+
+                    if (player === opponent){
+                        result.innerHTML = 'Draw'
+                    } else if (isWon(player, opponent)){
+                        result.innerHTML = "You win"
+                    } else {
+                        result.innerHTML = 'You lose'
+                    }
+                })
+            })
+        </script>
+    </body>
+</html>

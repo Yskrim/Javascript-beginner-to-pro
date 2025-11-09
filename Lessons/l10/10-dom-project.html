@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>DOM-projects</title>
+
+    <style>
+        body {
+            font-family: Arial;
+        }
+
+        .subscribe-button {
+            padding: 12px 18px;
+            font-weight: 700;
+            border-radius: 40px;
+            border: none;
+            background-color: rgb(0, 0, 0);
+            color: white;
+            cursor: pointer;
+            transition: 200ms ease;
+            margin-bottom: 30px;
+        }
+
+        .is-subscribed {
+            background-color: rgb(225, 225, 225);
+            color: rgb(0, 0, 0);
+        }
+        .subscribe-button:active,
+        .is-subscribed:active {
+            transform: translateY(2px);
+        }
+
+        .input-field {
+            padding: 16px;
+            font-size: 14px;
+            border: 1px solid rgb(234, 234, 234);
+        }
+        .input-button {
+            padding: 16px;
+            font-size: 14px;
+            border: 1px solid green;
+            margin-left: -6px;
+            background-color: green;
+            color: white;
+            transition: 200ms ease;
+            cursor: pointer;
+        }
+        
+        .input-button:hover {
+            background-color: rgb(1, 148, 1);
+        }
+
+        .input-button:active {
+            transform: translateY(2px);
+        }
+    </style>
+  </head>
+  <body>
+    <p>YouTube Subscribe button</p>
+    <button onclick="subscribe(this)" class="js-subscribe-button-2  subscribe-button">Subscribe</button>
+    <br>
+    <br>
+
+    <p>Amazon Shipping Calculator</p>
+    <p>Orders under $40 = +$10 shipping.</p>
+    <p>Orders over $40 = FREE shipping.</p>
+    <input class="js-input input-field" onkeydown="
+        handleCostkeyDown(event);
+    " placeholder="Cost of order">
+    <button class="js-button input-button">Calculate</button>
+    <p class="js-output"></p>
+
+    <script>
+
+
+
+        function handleCostkeyDown(event){
+            if (event.key === 'Enter'){
+            calculateTotal();
+            }   
+        }
+        
+        function subscribe(btn){
+
+            if(btn.innerText === 'Subscribe') {
+                btn.innerText ='Subscribed';
+                btn.classList.add('is-subscribed');
+            } else {
+                btn.innerText = 'Subscribe';
+                btn.classList.remove('is-subscribed');
+            }
+        }
+
+        let button = document.querySelector('.js-button');
+        let input = document.querySelector('.js-input');
+
+        button.addEventListener('click', () => calculateTotal());
+        input.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                calculateTotal();
+            }
+        });
+
+        let output = document.querySelector('.js-output');
+        
+        function calculateTotal(){
+            
+            if(input.value >= 40) {
+                output.innerText= `$${input.value}`;
+            } else if (input.value > 0) {
+                output.innerText = `$${Number(input.value) + 10}`;
+            } else {
+                output.innerText = ''; 
+            }
+        }
+    </script>
+  </body>
+</html> 
