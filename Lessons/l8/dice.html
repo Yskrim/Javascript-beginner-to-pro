@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Dice</title>
+    </head>
+    <body>
+        <button onclick="rollDice()">Roll</button>
+        <h1 id="display"></h1>
+
+        <script>
+            function rollDice(){
+                document.getElementById('display').innerHTML = Math.round(Math.random() * 5 + 1)
+            }
+
+        </script>
+    </body>
+
+
+</html>

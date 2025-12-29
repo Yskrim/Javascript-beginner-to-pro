@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+    <body>
+        <label for="11a">11a</label>
+        <div className="11a">
+            <p id="11a"></p>
+            <input id="0" type="number">
+            <input id="1" type="number">
+            <input id="2" type="number">
+            <script>
+                const nums11a = [10,20,30]
+                const display11a = document.getElementById('11a')
+                display11a.textContent = nums11a
+                
+                const inputs = document.querySelectorAll('input')
+                inputs.forEach(i => {
+                    i.addEventListener('input', () => {
+                        // console.log(i)
+                        nums11a[+i.id] = +i.value
+                        display11a.innerHTML = nums11a
+                    })
+                })
+            </script>
+        </div>
+        <br>
+        <br>
+
+        <label for="11b">11b</label>
+        <div className="11b">
+            <p id="11b"></p>
+            <form id="form11b">
+                <input id="newnum" type="number">
+                <button type="button" id="btn-push">Push value</button>
+                <button type="button" id="btn-pop">Pop value</button>
+            </form>
+            <script>
+                const nums11b = [10,20,30]
+                const display11b = document.getElementById('11b')
+                const input11b = document.getElementById('newnum')
+                const pushbtn = document.getElementById('btn-push')
+                const popbtn = document.getElementById('btn-pop')
+                render()
+
+                function getLastValue(arr){
+                    return arr[arr.length-1] ?? ''
+                }
+                function pushValue(arr, value){
+                    arr.push(value)
+                }
+                function popValue(arr){
+                    arr.length && arr.pop()
+                }
+                function render(){
+                    display11b.textContent = nums11b
+                    // getLastValue(nums11b)
+                }
+                
+                pushbtn.addEventListener('click', (e)=>{
+                    e.preventDefault()
+                    pushValue(nums11b, Number(input11b.value))
+                    input11b.value = ''
+                    render()
+                })
+                popbtn.addEventListener('click', (e)=>{
+                    e.preventDefault()
+                    popValue(nums11b)
+                    render()
+                })
+            </script>
+
+            <br>
+            <br>
+            <div className="11c">
+                <p id="11c"></p>
+                <button id="swap">Swap</button>
+                <input type="number" id="1input">
+                <input type="number" id="2input">
+                <script>
+                    const nums = [1, 2, 3, 4, 5]
+                    const display = document.getElementById('11c')
+                    display.innerHTML=nums
+                    
+                    // for(let i=0; i < 2; i++ ){
+                    //     const input = document.createElement('input')
+                    //     input.type='number'
+                    //     input.id=i + 'input'
+                    //     document.body.appendChild(input)
+                    // }
+
+                    const button11c = document.getElementById('swap')
+                    button11c.addEventListener('click', ()=>{
+                        const num1 = +document.getElementById('1input').value
+                        const num2 = +document.getElementById('2input').value
+                        // console.log(num1, num2)
+                        arraySwap(nums, num1, num2)
+                    })
+
+                    function arraySwap(arr, num1, num2){
+                        if((num1 >=0 && num1 < arr.length) && (num2 >=0 && num2 < arr.length) && num1!=num2){
+                            let tmp = arr[num1]
+                            arr[num1] = arr[num2]
+                            arr[num2] = tmp
+                            display.innerHTML = arr
+                        }
+                    }
+                    
+                    // 11i
+                    function addNum(arr, num){
+                        for(const i of arr){
+                            arr[i]++
+                        }
+                        return
+                    }
+
+                    // 11j
+                    function addArrays(arr1,arr2){
+                        for(const i of arr1){
+                            arr1[i]+=arr2[i]
+                        }
+                        return
+                    }
+
+                    //  11k
+                    function countPositive(arr){
+                        let count=0
+                        for(const i of arr){
+                            arr[i] > 0 && count++
+                        }
+                        return count
+                    }
+
+                    // 11l
+                    function minMax(arr){
+                        const obj= { min : arr[0], max : arr[0] }
+                        for(let i=0; i<arr.length; i++){
+                            obj.min = (arr[i] < obj.min) ? arr[i] : obj.min;
+                            obj.max = (arr[i] > obj.max) ? arr[i] : obj.max;
+                        }
+                        return obj
+                    }
+                    // console.log(minMax(nums11b))
+
+                    // 11m
+                    function minMax2(arr){
+                        if(arr.length){
+                            let min=arr[0]
+                            let max=arr[0]
+                            for(let i=0; i<arr.length; i++){
+                                min = min > arr[i] ? arr[i] : min
+                                max = max < arr[i] ? arr[i] : max
+                            }
+                            return { min, max }
+                        } return { min: null, max : null }
+                    }
+                    // console.log(minMax2(nums11b))
+
+                    // 11n
+                    const words = ['apple','apple','apple','grape']
+                    function countWords(arr){
+                        const dict = {}
+                        for(const word of arr){
+                            if(dict[word])
+                                dict[word]++
+                            else
+                                dict[word]=1
+                        } return dict
+                    }
+                    // console.log(countWords(words))
+
+                    // 11o, 11p, 11q
+                    // array of strings
+                    // loop over the array
+                    // check if string search is inside the array
+                    // console.log it's index if there is and console.log(-1) if not
+                    const words11o = ['hello', 'world', 'search', 'good']
+                    function findIndex(arr, word){
+                        for(let i=0; i < arr.length; i++){
+                            if(arr[i] === word){
+                                console.log(i)
+                                return
+                            }
+                        }
+                        console.log(-1)
+                    }
+                    // findIndex(words11o, 'search')
+
+                    // 11r
+                    const foods = ['egg', 'apple', 'egg', 'egg', 'ham']
+                    function removeEgg(foods){
+                        return foods.filter(item => item != 'egg')
+                    }
+                    // console.log(removeEgg(foods))
+
+                    // 11s
+                    function removeCountedWords(foods, word, count){
+                        for(let i=0; i<foods.length; i++){
+                            while(count && foods[i] === word){
+                                foods.splice(i, 1)
+                                count-=1
+                            }
+                        }
+                        return foods
+                    }
+                    // console.log(removeCountedWords(foods, 'egg', 3))
+
+                    // 11t, 11u
+                    function removeRCountedWords(foods, word, count){
+                        foods=foods.reverse()
+                        for(let i=0; i<foods.length; i++){
+                            while(count && foods[i] === word){
+                                foods.splice(i, 1)
+                                count-=1
+                            }
+                        }
+                        return foods.reverse()
+                    }
+                    console.log(removeRCountedWords(foods, 'egg', 2))
+
+                    // 11v
+
+                    function fizzBuzz(){
+                        for(let i=1; i<=20; i++){
+                            if(i % 3 === 0) console.log('fizz')
+                            else if(i % 5 === 0) console.log('buzz')
+                            else console.log(i)
+                        }
+                    }
+                    fizzBuzz()
+                </script>
+            </div>
+        </div>
+
+    </body>
+</html>

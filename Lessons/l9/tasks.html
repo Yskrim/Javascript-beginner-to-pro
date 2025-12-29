@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+    <body>
+        <div className="9a">
+            <button>9a</button>
+            <script>
+                console.log(document.querySelector('button'))
+            </script>
+        </div>
+        <br> 
+        <br> 
+        <div className="9b">
+            <button class="9b">9b done!</button>
+            <script>
+                console.log(document.querySelector('[class="9b"]'))
+            </script>
+        </div>
+        <br> 
+        <br> 
+        <div className="9c">
+            <button class="9c">heads</button>
+            <button class="9c">tails</button>
+            <p id="9c"></p>
+            <script>
+                const buttons = document.querySelectorAll('[class="9c"]')
+                const text = document.getElementById('9c')
+                buttons.forEach(b => b.addEventListener('click', () => {
+                    text.innerHTML = `You chose: ${b.innerHTML}`
+                }))
+            </script>
+        </div>
+        <br> 
+        <br> 
+        <div class="9d">
+            <label for="9d-form">What is your name?</label>
+            <form id="9d-form">
+                <input id="9d-input" type="text">
+                <button type="submit">submit</button>
+            </form>
+            <p id="9d-output"></p>
+            <script>
+                const form = document.getElementById('9d-form');
+                const input = document.getElementById('9d-input');
+                const output = document.getElementById('9d-output');
+
+                form.addEventListener("submit", (e) => {
+                    e.preventDefault();
+                    output.textContent = `Nice to meet you, ${input.value}!`
+                });
+            </script>
+        </div>
+        <br>
+        <br>
+        <div className="9g">
+            <label for="9g-form">Calculate total</label>
+            <form id="9g-form">
+                <input id="9g-input" type="text">
+                <button type="submit">Calculate</button>
+            </form>
+            <p id="9g-output"></p>
+
+            <script>
+                const form1 = document.getElementById('9g-form');
+                const input1 = document.getElementById('9g-input');
+                const output1 = document.getElementById('9g-output');
+
+                function calculateTotal(obj){            
+                    if(+obj.value >= 40)
+                        return `$${obj.value}`;
+                    else if (+obj.value > 0) 
+                        return `$${+obj.value + 10}`;
+                    else 
+                        return 'your cart is empty'; 
+                }
+
+                form1.addEventListener("submit", (e) => {
+                    e.preventDefault();
+                    // console.log(+input1.value)
+                    output1.textContent = `Order total: ${calculateTotal(input1)}!`
+                });
+            </script>
+        </div>
+        <br>
+        <br>
+        <div className="9h">
+            <label for="9h">9h</label>
+            <form id="9h">
+                <input oninput="updateOutput(this.value)">
+                <p id="9h-output"></p>
+            </form>
+            <script>
+                function updateOutput(value){
+                    const output9h = document.getElementById('9h-output')
+                    output9h.innerHTML = value
+                }
+            </script>
+        </div>
+        <br>
+        <br>
+        <label for="9i">9i</label>
+        <div id="9i">
+            <p id="display9i">Cart quantity:</p>
+            <button>Show Quantity</button>
+            <button>Add to cart</button>
+            <button>+2</button>
+            <button>+3</button>
+            <button>+4</button>
+            <button>+5</button>
+            <button>Remove from cart</button>
+            <button>-2</button>
+            <button>-3</button>
+        </div>
+        <script>
+            const buttons9i = document.querySelectorAll('button')
+            const display9i = document.getElementById('display9i')
+            let quantity = JSON.parse(localStorage.getItem('cartqty')) ?? 0
+            buttons9i.forEach(button => {
+                button.addEventListener('click', () => {
+                    const btnText = button.textContent
+                    if(btnText === 'Show Quantity')
+                        display9i.innerHTML = `Cart quantity ${quantity}`
+                    else if(btnText === 'Add to cart')
+                        quantity++
+                    else if(btnText[0] === '+')
+                        quantity+= +btnText
+                    else if(btnText === 'Remove from cart') 
+                        quantity = 0
+                    else if(btnText[0] === '-' && quantity >= +btnText[1])
+                        quantity-= btnText[1]
+                    display9i.innerHTML = `Cart quantity ${quantity}`
+                    localStorage.setItem('cartqty', quantity)
+                })
+            })
+        </script>
+    </body>
+</html>

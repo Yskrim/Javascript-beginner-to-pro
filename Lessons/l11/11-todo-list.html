@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Todo List</title>
+    <link rel="stylesheet" href="styles/11-todo-list.css">
+  </head>
+  <body>
+    <p>Todo List</p>
+
+    <div class="todo-input-grid">
+      <input placeholder="Todo name"
+        class="js-name-input name-input">
+      <input type="date"
+        class="js-due-date-input due-date-input">
+      <button class='js-add-todo-button'>Add</button>
+    </div>
+
+    <div class="js-todo-list todo-grid"></div>
+
+    <script>
+
+        const todoList = [{
+        name: 'make dinner',
+        dueDate: '2022-12-22'
+        }, {
+        name: 'wash dishes',
+        dueDate: '2022-12-22'
+        }];
+
+        renderTodoList();
+
+        function renderTodoList() {
+        let todoListHTML = '';
+
+        for (let i = 0; i < todoList.length; i++) {
+            const todoObject = todoList[i];
+            //const name = todoObject.name;
+            //const dueDate = todoObject.dueDate;
+            const { name, dueDate } = todoObject;
+            const html = `
+            <div>${name}</div>
+            <div>${dueDate}</div>
+            <button onclick="
+                todoList.splice(${i}, 1);
+                renderTodoList();
+            " class="delete-todo-button">Delete</button> 
+            `;
+            todoListHTML += html;
+        }
+
+        document.querySelector('.js-todo-list')
+            .innerHTML = todoListHTML;
+        }
+
+        function addTodo() {
+        const inputElement = document.querySelector('.js-name-input');
+        const name = inputElement.value;
+
+        const dateInputElement = document.querySelector('.js-due-date-input');
+        const dueDate = dateInputElement.value;
+
+        todoList.push({
+            //name: name,
+            //dueDate: dueDate,
+            name,
+            dueDate
+        });
+
+        inputElement.value = '';
+
+        renderTodoList();
+        }
+        
+    </script>
+  </body>
+</html>

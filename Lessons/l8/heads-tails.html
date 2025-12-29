@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Heads/tails</title>
+    </head>
+    <body>
+        <button id="display" disabled></button>
+        <button id="play">heads</button>
+        <button id="play">tails</button>
+        <button onclick="resetScore()">reset</button>
+
+        <script>
+            const buttons = document.querySelectorAll('[id=play]')
+            const display = document.getElementById('display') 
+            
+            function updateDisplay(score){
+                display.innerHTML = `w:${score.wins} l:${score.losses}`
+            }
+
+            function playGame(button){
+                const playerMove = button.innerHTML
+                const coinFlip = (Math.random() * 2 > 1) ? 'heads' : 'tails'
+                
+                return playerMove === coinFlip 
+            }
+            
+            function resetScore(){
+                score = {
+                    wins: 0,
+                    losses: 0,
+                };
+                localStorage.removeItem('score')
+                updateDisplay(score)
+            }
+
+            function isGameWon(bool){
+                if(bool){
+                    score.wins++
+                    // alert(`you win! wins:${score.wins}, losses: ${score.losses}`)
+                } else {
+                    score.losses++
+                    // alert(`you lose! wins:${score.wins}, losses: ${score.losses}`)
+                }
+                localStorage.setItem('score', JSON.stringify(score))
+            }
+
+
+            let score = JSON.parse(localStorage.getItem('score')) ?? {
+                wins: 0,
+                losses: 0,
+            };
+            updateDisplay(score)
+            
+            
+            buttons.forEach(button => {
+                button.addEventListener('click', () => {
+                    isGameWon(playGame(button))
+                    updateDisplay(score)
+                })
+            })
+        </script>
+    </body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Todo List</title>
+        <link rel="stylesheet" href="/Lessons/l11/styles.css">
+
+    </head>
+    <body>
+        <div class="main">
+            <div class="container">
+                <h1>Todo list</h1>
+                <label for="todo-name">Add todo</label>
+                <form id="todo-form" class="todo-input-form">
+                    <input id="todo-name" type="text" placeholder="Todo name" required>
+                    <input id="todo-date" type="date">
+                    <input id="todo-time" type="time">
+                    <button class='js-add-todo-button' id="add-btn" type="submit">Add</button>
+                </form>
+                <div class="lists-container">
+                    <div class="js-todo-list"></div>
+                    <div class="js-done-list"></div>
+                </div>
+                <div class="controls-buttons">
+                    <button onclick="clearLists()">Clear lists</button>
+                    <button onclick="saveLists()">Save list</button>
+                </div>
+            </div>
+            
+        </div>
+        <script src="/Lessons/l11/11-todolist.js"></script>
+    </body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Todo List</title>
+    </head>
+    <body>
+        <div style="display: flex; gap: 20px;">
+            <div>
+                <label for="todo">Todo List</label>
+                <form id="todo">
+                    <input id="todo-name" type="text" placeholder="Todo name" required>
+                    <input id="todo-date" type="date">
+                    <input id="todo-time" type="time">
+                    <button id="add-btn" type="submit">Add</button>
+                </form>
+                <div class="js-todo-list"></div>
+            </div>
+
+            <div class="js-done-list"></div>
+        </div>
+        <script>
+            const todolist = [
+                {
+                    name: 'Wash Dishes',
+                    date: '10-12-2025', 
+                    time: `${new Date().getHours()}:${new Date().getMinutes()}`
+                },
+                {
+                    name: 'Do laundry',
+                    date: '10-12-2025',
+                    time: `${new Date().getHours()}:${new Date().getMinutes()}`
+                },
+            ]
+
+            const donelist = []
+
+            const nameInput = document.getElementById('todo-name')
+            const dateInput = document.getElementById('todo-date')
+            const timeInput = document.getElementById('todo-time')
+            const addButton = document.getElementById('add-btn')
+
+            const form = document.querySelector('form')
+            form.addEventListener('submit', (e)=>{
+                e.preventDefault()
+                // console.log(dateInput.value)
+                // console.log(getDate())
+                const date = new Date()
+                const todo = { 
+                    name: nameInput.value,
+                    date: dateInput.value ? dateInput.value : getDate(),
+                    time: timeInput.value ? timeInput.value : `${date.getHours()}:${date.getMinutes()}`,
+                }
+                console.log(todo)
+                todolist.push(todo)
+                renderToDoList()
+                renderDoneList()
+            })
+            
+            renderToDoList()
+            renderDoneList()
+
+
+            function renderToDoList(){
+                let todoListHtml = ''
+                for(let i=0; i<todolist.length; i++){
+                    // console.log(todolist[i])
+                    const html = `
+                        <div>
+                            <p>
+                                ${todolist[i].name} 
+                                - ${todolist[i].date} 
+                                - ${todolist[i].time}
+                                <button
+                                    onclick="
+                                        todolist.splice(${i}, 1)
+                                        renderToDoList()
+                                    "
+                                >delete</button>
+                                <button
+                                    onclick="
+                                        donelist.push({...todolist[${i}]})
+                                        todolist.splice(${i}, 1)
+                                        renderToDoList()
+                                        renderDoneList()
+                                    "
+                                >done</button>
+                            </p>
+                        <div>`
+                    todoListHtml += html
+                }
+
+                document.querySelector('.js-todo-list').innerHTML = todoListHtml
+            }
+
+            function renderDoneList(){
+                let donelistHtml = donelist.length ? '<label>Donelist:</label>' : ''
+
+                for(let i=0; i<donelist.length; i++){
+                    const donehtml = `
+                            <div>
+                                <p>${donelist[i].name} ${donelist[i].date ?? ''} ${donelist[i].time ?? ''} - done </p>    
+                            </div>
+                    `
+                    donelistHtml += donehtml
+                }
+                document.querySelector('.js-done-list').innerHTML = donelistHtml
+            }
+
+            function getDate(){
+                const date = new Date()
+                return `${date.getDay()}-${date.getMonth()}-${date.getFullYear()}`
+            }
+        </script>
+    </body>
+</html>

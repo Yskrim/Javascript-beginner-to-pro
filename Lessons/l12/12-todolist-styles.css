@@ -1,0 +1,112 @@
+html {
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    overflow: hidden;
+    background-color: rgb(241, 241, 241);
+
+}
+
+body{
+    margin: 0;
+}
+
+label {
+    font-size: small;
+    opacity: 0.5;
+    margin-bottom: 10px;
+    /* line-height: 300%; */
+}
+
+input {
+    border: 1 ;
+    width: auto;
+    height: 32px;
+    padding: 0;
+    margin: 0;
+}
+
+h4, p{
+    margin: 0;
+}
+
+
+.main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 450px;
+    padding: 30px;
+    background-color: white;
+    border-radius: 16px;
+}
+
+form {
+    display: flex;
+    margin: 0 0 20px 0;
+    padding: 10px 0 0 0;
+    gap: 5px;
+    width: fill;
+}
+form input {
+    flex: 1;
+}
+
+.container{
+    gap: 10px;
+}
+
+.js-done-list, .js-todo-list {
+    flex: 1;
+}
+
+.lists-container{
+    display: flex;
+    gap: 10px;
+    min-height: 0px;
+    max-height: 420px;
+    height: fit-content;
+}
+.js-done-list,.js-todo-list{
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+}
+
+.todo-element, .done-element{
+    padding: 15px;
+    width: 1fr;
+    flex: 1fr;
+
+    background-color: rgb(248, 248, 248);
+    border-radius: 8px;
+    margin: 0 0 15px 0;
+}
+
+.done-element {
+    background-color: rgb(234, 253, 227);
+}
+
+.todo-input-form button {
+    padding: 8px;
+}
+
+.controls-buttons {
+    display: flex;
+    margin: 15px 0;
+    gap: 5px;
+}
+
+.controls-buttons button {
+    flex: 1;
+    padding: 8px;
+
+}
+
+.meta{
+    font-size: small;
+    opacity: 0.3;
+    margin: 5px 0;
+}

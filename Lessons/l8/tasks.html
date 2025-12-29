@@ -1,0 +1,61 @@
+<html>
+    <head>
+        <title>Tasks l8</title>
+    </head>
+    <body>
+
+        <script>
+            // 8a
+            const basketball = {
+                name: 'basketball',
+                price: 2095,
+            }
+            const car = {
+                name: 'car',
+                price: 10,
+            }
+            // console.log(basketball)
+            
+            // 8b
+            basketball.price += 500
+            // console.log(basketball)
+            
+            basketball['deliveryTime'] = '3 days'
+            // console.log(basketball)
+
+            // 8d
+            function comparePrice(p1, p2) {
+                return p1.price < p2.price ? p1 : p2
+            }
+
+            // console.log(comparePrice(basketball, car))
+
+            // 8e
+            function isSame(p1, p2){
+                if (p1.length != p2.length) {
+                    return false
+                }
+                for(let i in p1, p2){
+                    if(p1[i] != p2[i]){
+                        return false
+                    }
+                }
+                return true
+            }
+            console.log(isSame(basketball, basketball))
+
+            // 8f
+            const word = 'HELLO'
+            console.log(word.toLowerCase())
+
+            // 8g
+            console.log(word.repeat(2))
+
+            // 8h
+            // added local storage for the calculation string so it loads whenever the page is refreshed
+
+            
+
+        </script>
+    </body>
+</html>

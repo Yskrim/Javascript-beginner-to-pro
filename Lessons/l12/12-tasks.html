@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+    <body>
+        <div>
+            <!-- 12c -->
+            <button id="12c" onclick="
+                setTimeout(()=>{
+                    this.innerText='Finished!'
+                },1000)"
+            >Start</button>
+        </div>
+        <br>
+        
+        <div>
+            <!-- 12 d -->
+            <button id="12d" >Start2</button>
+        </div>
+
+        <br>
+        <div>
+            <!-- 12 e -->
+            <button id="12e" onclick="
+                const displayEl = document.getElementById('display')
+                displayEl.innerText='Added'
+                setTimeout(()=>{
+                    displayEl.innerText=''
+                },1000)
+            ">
+            Add to cart</button>
+            <p id="display"></p>
+        </div>
+
+        <br>
+        <div>
+            <!-- 12 f -->
+            <button id="12f">Add to cart</button>
+            <p id="display12f"></p>
+        </div>
+        <br>
+
+        <!-- 12h -->
+        <div>
+            <button id="12h-add" onclick="
+                count+=1
+            ">add</button>
+            <button id="12h-take" onclick="
+                count-=1
+            ">remove</button>
+        </div>
+
+        <script>
+            // 12a
+            let add = function(){
+                console.log(2+3)
+            }
+            // add()
+            // add()
+
+            // 12b
+            const runTwice = (fun)=>{
+                fun()
+                fun()
+            }
+            runTwice(add)
+
+
+            // 12c
+            const button12c = document.getElementById('12c')
+            button12c.addEventListener("click", ()=>{
+                setTimeout(()=>{
+                    button12c.innerText='Finished!'
+                }, 1000)
+            });
+
+
+            // 12d
+            const button12d = document.getElementById('12d')   
+            button12d.addEventListener("click", ()=>{
+                    button12d.disabled=true
+                    button12d.innerText='loading'
+                    const int = setInterval(()=>{
+                        button12d.innerText+='.'
+                    },250)
+                    setTimeout(()=>{
+                        clearInterval(int)
+                        button12d.innerText='Finished!'
+                    }, 1000)
+                    setTimeout(()=>{
+                        button12d.innerText='Start2'
+                        button12d.disabled=false
+                    }, 3000)
+                });
+
+            /*
+            function handleClick12d(button){
+                button.disabled=true
+                button.innerText='loading'
+                const int = setInterval(()=>{
+                    button.innerText+='.'
+                },250)
+                setTimeout(()=>{
+                    clearInterval(int)
+                    button.innerText='Finished!'
+                }, 1000)
+                setTimeout(()=>{
+                    button.innerText='Start2'
+                    button.disabled=false
+                }, 3000)
+            }
+            */
+
+            // 12f
+            let timeoutID;
+            let intervalID;
+            const display12f = document.getElementById('display12f');
+            const button12f = document.getElementById('12f')
+            display12f.innerText='Added';
+            display12f.style.opacity=0;
+
+            button12f.addEventListener('click', ()=>{
+                clearTimeout(timeoutID);
+                clearInterval(intervalID);
+                display12f.style.opacity=1;
+
+                timeoutID=setTimeout(()=>{
+                    intervalID=setInterval(()=>{
+                        display12f.style.opacity-=0.01;
+                    },1)
+                    if(display12f.style.opacity===0){
+                        clearInterval(intervalID);
+                    }
+                },1000);
+            });
+            
+            /*
+            function handleClick12f(){
+                clearTimeout(timeoutID);
+                clearInterval(intervalID)
+                display12f.style.opacity=1
+
+                timeoutID=setTimeout(()=>{
+                    intervalID=setInterval(()=>{
+                        display12f.style.opacity-=0.01
+                    },1)
+                    if(display12f.style.opacity===0){
+                        clearInterval(intervalID)
+                    }
+                },1000)
+            } 
+            */         
+
+            // 12g
+
+            /*
+            let fun;
+            let isShown= false
+            document.addEventListener('visibilitychange', ()=>{
+                document.hidden ? fun = setInterval(()=>{
+                    document.title= isShown ? "(2) New Messages" : "App"
+                    isShown = !isShown
+                },1000)
+                    : 
+                clearInterval(fun);
+            })
+            */
+            
+
+            // fun()
+
+            // 12g
+            /*
+            let count = 2
+            let interval;
+            let showMessage = true;
+
+            document.addEventListener('visibilitychange', ()=>{
+                if (document.hidden) {
+                    interval = setInterval(()=>{
+                    if (showMessage) {
+                            document.title=`(${count}) New Messages`
+                        } else {
+                            document.title="⚠️ Action Required"
+                        }
+                        showMessage = !showMessage;
+                    }, 500);
+                } else {
+                    clearInterval(interval);
+                    document.title = "myApp";
+                    showMessage = true;
+                }
+            });
+            */
+
+            // 12i
+            let count = 2
+            let interval;
+            let showMessage = true;
+
+            document.addEventListener('visibilitychange', ()=>{
+                if (document.hidden && count>0) {
+                    interval = setInterval(()=>{
+                        if (showMessage) {
+                                document.title=`(${count}) New Messages`;
+                        } else 
+                            document.title="⚠️ Action Required";
+                        showMessage = !showMessage;
+                    }, 500);
+                } else {
+                    clearInterval(interval);
+                    document.title = "myApp";
+                    showMessage = true;
+                }
+            });
+
+            // 12j
+            const multiply = (a,b) => a*b;
+            // console.log('result:', multiply(99, 1))
+
+            // 12l
+            const countPositive = (nums)=> nums.filter(num=>num > 0).length
+            // console.log(countPositive([1,-1,2,3,-4,-5,0]))
+
+            // 12m
+            const addNum = (arr, num)=> arr.map(i => i * num);
+            // console.log(addNum([1,-1,2,3,-4,-5,0], 10))
+
+            // 12n
+            const removeEgg = (foods)=> foods.filter(food=>food !== 'egg');
+            // console.log(removeEgg(['egg','apple','egg','egg','ham']))
+
+            // 12o
+            const removeEgg2 = (foods, counter)=>{
+                let eggs = 0;
+                return foods.filter(food=>{
+                    if(food === 'egg' && eggs < counter){
+                        eggs++;
+                        return false;
+                    } 
+                    return true;
+                });
+            };
+            // console.log(removeEgg2(['egg','apple','egg','egg','ham'],1))
+
+            // 12p
+            // change 12c to 12i to use arrow functions: DONE
+
+            // 12q
+            // change 12c to 12i to use eventlisteners instead of onclick: DONE
+
+            // 12r
+            // copy RPS game to l12 dir and update imports: DONE
+
+            // 12s
+            // update autoplay in 12/RPS to use event listener instead of onclick: DONE
+
+            // 12s
+            // update autoplay btn text to show 'stop playing' when it's active, else 'autoplay': DONE
+
+            // 12u
+            // update code so 'a' press starts autoplay: DONE
+
+            // 12v
+            // update reset score with eventlistener: DONE
+
+            // 12w
+            // update code so 'backspace' press resets score: DONE
+
+            // 12x
+            // show confirmation for score reset on either btn press or 'backspace press':
+        </script>
+    </body>
+</html>

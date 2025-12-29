@@ -37,11 +37,9 @@
     </p>
 
     <script>
-        let calculation = localStorage.getItem('calculation') ?? '';
+        let calculation = '';
         const display = document.getElementById('display')
         const buttons = document.querySelectorAll('button')
-        
-        display.value = calculation
 
         buttons.forEach(button => {
             button.addEventListener('click', () => updateCalculation(button))
@@ -61,8 +59,8 @@
                 calculation += button.innerHTML
                 display.value = calculation
             }
-            localStorage.setItem('calculation', calculation)
         }
     </script>
   </body>
 </html>
+ 

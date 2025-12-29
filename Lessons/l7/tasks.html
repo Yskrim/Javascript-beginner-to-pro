@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>lesson 7 functions tasks</title>
+    </head>
+    <body>
+        <h2>7a</h2>
+            <button onclick="hi()">7a</button>
+            <br/>
+            <br/>
+
+        <h2>7b</h2>
+            <form onsubmit="greet(event)">
+                <input id="name" name="name">
+                <button type="submit">7b</button>
+            </form>
+            <br/>
+            <br/>
+
+        <h2>7c</h2>
+            <button onclick="hello()">7c</button>
+            <br/>
+            <br/>
+
+        <h2>7d</h2>
+        <form>
+            <label for="cel">Celcius</label>
+            <input id="cel" oninput="convertToFar()">
+            <label for="far">Farenheit</label>
+            <input id="far" oninput="convertToCel()">
+        </form>
+            <br/>
+            <br/>
+
+        <h2>7d</h2>
+        <form>
+            <label for="input">Input</label>
+            <input oninput="convertLength(this.value)" id="input">
+            <select id="input-select">
+                <option>km</option>
+                <option>mi</option>
+                <option>m</option>
+                <option>ft</option>
+                <option>cm</option>
+                <option>in</option>
+            </select>
+            <br>
+            <br>
+            <label for="output">Output</label>
+            <input id="output">
+            <select id="output-select">
+                <option>km</option>
+                <option>mi</option>
+                <option>m</option>
+                <option>ft</option>
+                <option>cm</option>
+                <option>in</option>
+            </select>
+        </form>
+        
+
+        <script>
+            function hi(){
+                alert('hi!')
+            }
+
+            function greet(event){
+                event.preventDefault()
+
+                const name = document.getElementById('name').value
+                alert(`Hello! ${name}`)
+            }
+
+            function hello(name){
+                if(!name)
+                    alert("Hello there!")
+                else
+                    alert("Hello " + name)
+            }
+
+            function convertToFar(){
+                let cel = document.getElementById('cel') 
+                let far = document.getElementById('far')
+                far.value = cel.value * 9 / 5 + 32
+            }
+
+            function convertToCel(){
+                let cel = document.getElementById('cel') 
+                let far = document.getElementById('far')
+                cel.value = (far.value - 32) * 5 / 9
+            }
+
+            function convertLength(length){
+                const from = document.getElementById('input-select').value; 
+                const to = document.getElementById('output-select').value; 
+                
+                const toMeters = {
+                    km: 1000,
+                    m: 1,
+                    cm: 0.01,
+                    in: 0.0254,
+                    ft: 0.3048,
+                    mi: 1609.344
+                };
+
+                document.getElementById('output').value = Math.floor(length * toMeters[from] / toMeters[to])
+            }
+        </script>
+    </body>
+</html>
+
