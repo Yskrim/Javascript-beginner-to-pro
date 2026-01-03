@@ -1,5 +1,6 @@
 import products from "../data/products.js";
 import animateAddedToCart from "../scripts/utils.js";
+import cart from "../data/cart.js"
 
 let productsHtml= ''
 
@@ -67,11 +68,27 @@ document.querySelector('.js-products-grid').innerHTML = productsHtml;
 document.querySelectorAll('.add-to-cart-button')
     .forEach(button => {
     button.addEventListener('click', () => {
-        const productId = button.dataset.productId; // everything that starts with data- is a dataset
+        const {productId} = button.dataset; // everything that starts with data- is a dataset
         const quantity = parseInt(document.getElementById(productId).value);
         
         //  13g - 13h
-        document.querySelector('.cart-quantity').innerHTML = Number(document.querySelector('.cart-quantity').innerHTML) + quantity;
+        let matchingItem;
+        cart.forEach(item=>{
+            if(productId===item.productId)
+                matchingItem = item; // this sets the pointer to the object inside the array to a local variable. Updating this variable updates the object cart[item].
+        });
+
+        if(matchingItem){
+            matchingItem.quantity += quantity;
+        }else{
+            cart.push({productId,quantity});
+        }
+
+        let cartQuantity = 0;
+        cart.forEach(item=>{
+            cartQuantity += item.quantity;
+        })
+        document.querySelector('.cart-quantity').innerHTML = cartQuantity;
 
         // 13i
         document.getElementById(`added-to-cart-${productId}`).classList.add('added-to-cart-visible')
