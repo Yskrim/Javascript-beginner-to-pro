@@ -1,4 +1,5 @@
 import products from "../data/products.js";
+import animateAddedToCart from "../scripts/utils.js";
 
 let productsHtml= ''
 
@@ -47,8 +48,11 @@ products.forEach(p=>{
                 <img src="images/icons/checkmark.png">
                 Added
             </div>
-
-            <button class="add-to-cart-button button-primary">
+            <div class='added-to-cart' id="added-to-cart-${p.id}">
+                <img src="https://cdn-icons-png.flaticon.com/512/5610/5610944.png">
+                Added
+            </div>
+            <button class="add-to-cart-button button-primary" data-product-id="${p.id}">
                 Add to Cart
             </button>
             </div>
@@ -60,12 +64,18 @@ products.forEach(p=>{
 document.querySelector('.js-products-grid').innerHTML = productsHtml;
 
 // solution to 13a -- 13f exercises in l13
-// each button should add the quantity of the product to the cart, which now is console.logged : TO BE UPDATED.
-const addButtons = document.querySelectorAll('.add-to-cart-button');
-addButtons.forEach(button => {
+document.querySelectorAll('.add-to-cart-button')
+    .forEach(button => {
     button.addEventListener('click', () => {
-        const productId = button.parentElement.querySelector('.product-quantity-select').id;
-        const quantity = button.parentElement.querySelector('.product-quantity-select').value;
-        console.log(productId, quantity);
+        const productId = button.dataset.productId; // everything that starts with data- is a dataset
+        const quantity = parseInt(document.getElementById(productId).value);
+        
+        //  13g - 13h
+        document.querySelector('.cart-quantity').innerHTML = Number(document.querySelector('.cart-quantity').innerHTML) + quantity;
+
+        // 13i
+        document.getElementById(`added-to-cart-${productId}`).classList.add('added-to-cart-visible')
+        animateAddedToCart(productId)
     });
 });
+
