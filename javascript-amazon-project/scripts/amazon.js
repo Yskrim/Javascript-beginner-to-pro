@@ -59,15 +59,8 @@ products.forEach(p=>{
 
 document.querySelector('.js-products-grid').innerHTML = productsHtml;
 
-// const quantitySelects = document.querySelectorAll('.product-quantity-select');
-// quantitySelects.forEach(select => {
-//     select.addEventListener('change', () => {
-//         const productId = select.id;
-//         const quantity = select.value;
-//         // console.log(productId, quantity);
-//     });
-// });
-
+// solution to 13a -- 13f exercises in l13
+// each button should add the quantity of the product to the cart, which now is console.logged : TO BE UPDATED.
 const addButtons = document.querySelectorAll('.add-to-cart-button');
 addButtons.forEach(button => {
     button.addEventListener('click', () => {
