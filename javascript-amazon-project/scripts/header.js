@@ -1,4 +1,4 @@
-const headerContainer = document.querySelector('.amazon-header');
+export const headerContainer = document.querySelector('.amazon-header');
 
 headerContainer.innerHTML = `
     <div class="amazon-header-left-section">
