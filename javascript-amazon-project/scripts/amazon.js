@@ -1,6 +1,6 @@
 import products from "../data/products.js";
 import animateAddedToCart from "../scripts/utils.js";
-import cart from "../data/cart.js"
+import {cart, addToCart} from "../data/cart.js"
 
 let productsHtml= ''
 
@@ -72,23 +72,8 @@ document.querySelectorAll('.add-to-cart-button')
         const quantity = parseInt(document.getElementById(productId).value);
         
         //  13g - 13h
-        let matchingItem;
-        cart.forEach(item=>{
-            if(productId===item.productId)
-                matchingItem = item; // this sets the pointer to the object inside the array to a local variable. Updating this variable updates the object cart[item].
-        });
-
-        if(matchingItem){
-            matchingItem.quantity += quantity;
-        }else{
-            cart.push({productId,quantity});
-        }
-
-        let cartQuantity = 0;
-        cart.forEach(item=>{
-            cartQuantity += item.quantity;
-        })
-        document.querySelector('.cart-quantity').innerHTML = cartQuantity;
+        addToCart(productId,quantity);
+        updateCartQuantity();
 
         // 13i
         document.getElementById(`added-to-cart-${productId}`).classList.add('added-to-cart-visible')
@@ -96,3 +81,12 @@ document.querySelectorAll('.add-to-cart-button')
     });
 });
 
+
+
+function updateCartQuantity(){
+    let cartQuantity = 0;
+        cart.forEach(cartItem=>{
+            cartQuantity += cartItem.quantity;
+        })
+        document.querySelector('.cart-quantity').innerHTML = cartQuantity;
+}
