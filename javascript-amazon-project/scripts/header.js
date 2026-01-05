@@ -1,6 +1,8 @@
-export const headerContainer = document.querySelector('.amazon-header');
+import { fetchCartQuantity } from "../data/cart.js";
+export const headerContainer = document.querySelector('body');
 
-headerContainer.innerHTML = `
+headerContainer.innerHTML += `
+  <div class="amazon-header">
     <div class="amazon-header-left-section">
         <a href="amazon.html" class="header-link">
           <img class="amazon-logo"
@@ -26,8 +28,9 @@ headerContainer.innerHTML = `
 
         <a class="cart-link header-link" href="checkout.html">
           <img class="cart-icon" src="images/icons/cart-icon.png">
-          <div class="cart-quantity">3</div>
+          <div class="cart-quantity">${fetchCartQuantity()}</div>
           <div class="cart-text">Cart</div>
         </a>
       </div>
+  </div>    
 `

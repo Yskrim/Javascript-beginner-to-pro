@@ -16,3 +16,9 @@ export function addToCart(productId, quantity){
 
     localStorage.setItem('cart', JSON.stringify(cart));
 }
+
+export function fetchCartQuantity(){
+    let qty = 0;
+    cart.forEach(item=>qty+=item.quantity)
+    return qty;
+}
