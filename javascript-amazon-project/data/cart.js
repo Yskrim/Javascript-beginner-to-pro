@@ -1,5 +1,4 @@
-export const cart = JSON.parse(localStorage.getItem('cart')) ?? []
-
+export let cart = JSON.parse(localStorage.getItem('cart')) ?? []
 
 export function addToCart(productId, quantity){
     let matchingItem;
@@ -17,8 +16,24 @@ export function addToCart(productId, quantity){
     localStorage.setItem('cart', JSON.stringify(cart));
 }
 
+// 14e (done ahead of task)
 export function fetchCartQuantity(){
     let qty = 0;
     cart.forEach(item=>qty+=item.quantity)
     return qty;
 }
+
+export function removeFromCart(productId){
+    cart = cart.filter(item=>item.productId !== productId);
+    localStorage.setItem('cart', JSON.stringify(cart));
+}
+
+export function updateQuantity(productId, qty){
+    cart = cart.map(item => 
+        item.productId === productId 
+            ? { ...item, quantity: Number(qty) } 
+            : item
+    );
+    localStorage.setItem('cart', JSON.stringify(cart));
+}
+

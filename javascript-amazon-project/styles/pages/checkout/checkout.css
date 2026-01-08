@@ -209,3 +209,26 @@
   margin-top: 11px;
   margin-bottom: 15px;
 }
+
+
+/* 14g */
+
+.product-quantity{
+  display: flex;
+}
+
+.quantity-input {
+  width: 30px;
+}
+.quantity-input, .save-quantity-link{
+  display: none;
+}
+
+.is-editing-quantity .quantity-input,  
+.is-editing-quantity .save-quantity-link{
+  display: block;
+}
+
+.is-hidden{
+  display: none;
+}

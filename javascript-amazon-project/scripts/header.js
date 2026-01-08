@@ -28,7 +28,7 @@ headerContainer.innerHTML += `
 
         <a class="cart-link header-link" href="checkout.html">
           <img class="cart-icon" src="images/icons/cart-icon.png">
-          <div class="cart-quantity">${fetchCartQuantity()}</div>
+          <div class="cart-quantity">${fetchCartQuantity()>0 ? fetchCartQuantity() : ''}</div> 
           <div class="cart-text">Cart</div>
         </a>
       </div>

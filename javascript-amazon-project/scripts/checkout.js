@@ -1,4 +1,5 @@
-import {cart} from "../data/cart.js"
+import {cart, fetchCartQuantity, removeFromCart, updateQuantity} from "../data/cart.js"
+
 import products from "../data/products.js"
 import formatPrice from "./utils/priceFormat.js";
 
@@ -6,9 +7,9 @@ function renderCart(){
     let cartItemsHtml = ''
     if(cart.length){
         cart.forEach(cartItem=>{
-            const item = products.find(product=>product.id===cartItem.productId)
+            const item = products.find(product=>product.id===cartItem.productId);
             let elementHtml = `
-            <div class="cart-item-container" data-product-id='${cartItem.productId}'>
+            <div class="cart-item-container js-cart-item-container-${cartItem.productId}">
                 <div class="delivery-date"> Delivery date: Tuesday, June 21</div>
                 <div class="cart-item-details-grid">
                     <img class="product-image" src="${item.image}">
@@ -19,8 +20,12 @@ function renderCart(){
                         <div class="product-quantity">
                             <span>
                                 Quantity: <span class="quantity-label">${cartItem.quantity}</span>
-                            </span>
-                            <span class="update-quantity-link link-primary">Update</span>
+                            </span> 
+                            <span class="update-quantity-link link-primary" data-product-id='${cartItem.productId}'>Update</span>
+                           
+                            <input class="quantity-input" type="number" min="0" value="${cartItem.quantity}">
+                            <span class="save-quantity-link link-primary">Save</span>
+                           
                             <span class="delete-quantity-link link-primary" data-product-id='${cartItem.productId}'>Delete</span>
                         </div>
                     </div>
@@ -60,16 +65,64 @@ function renderCart(){
     }
 
 
+
+
     const qtyDeleteBtns = document.querySelectorAll(".delete-quantity-link");
     qtyDeleteBtns.forEach(btn=>{
         btn.addEventListener('click', ()=>{
-            const {productId} = btn.dataset 
-            cart.splice(productId, 1)
-            // localStorage.removeItem('cart')
-            localStorage.setItem('cart', JSON.stringify(cart))
-            renderCart()
+            const {productId} = btn.dataset;
+            removeFromCart(productId);
+
+            const container = document.querySelector(`.js-cart-item-container-${productId}`);
+            container.remove();
+            renderCart();
         });
     });
+
+    const qtyUpdateBtns = document.querySelectorAll(".update-quantity-link");
+    qtyUpdateBtns.forEach(btn=>{
+        let isClicked = false;
+        btn.addEventListener('click', ()=>{
+            // 14f-14k
+            isClicked = !isClicked;
+            
+            const {productId} = btn.dataset;
+            
+            const container = document.querySelector(`.js-cart-item-container-${productId}`);
+            const savebtn = container.querySelector(".save-quantity-link");
+            const qtyInput = container.querySelector(".quantity-input");
+            const qtyLabel = container.querySelector('.quantity-label')
+
+            if(isClicked) {
+                container.classList.add('is-editing-quantity');
+                qtyLabel.classList.add('is-hidden');
+                btn.classList.add('is-hidden');
+            }
+            else{
+                container.classList.remove('is-editing-quantity');
+                qtyLabel.classList.remove('is-hidden');
+                btn.classList.remove('is-hidden');
+            } 
+            
+            savebtn.addEventListener('click', ()=>{
+                if(qtyInput.value > 0){
+                    updateQuantity(productId, Number(qtyInput.value));
+                    renderCart()
+                };
+                if(qtyInput.value <=0){
+                    removeFromCart(productId);
+                    container.remove();
+                };
+                container.classList.remove('is-editing-quantity');
+                renderCart()
+            })
+        });
+    });
+
+    // 14a 14b NOTE - this uses the same function from cart.js to refresh the data on the dependent elements.
+    document.querySelector(".js-return-to-home-link").innerText = `${fetchCartQuantity()} items`;
+    document.querySelector(".js-payment-summary").innerText = `Items (${fetchCartQuantity()})`;
+    // 14c
 }
 renderCart();
 

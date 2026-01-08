@@ -1,6 +1,6 @@
 import products from "../data/products.js";
 import animateAddedToCart from "./utils/animateAddedToCart.js.js";
-import {cart, addToCart} from "../data/cart.js"
+import {cart, addToCart, fetchCartQuantity} from "../data/cart.js"
 import formatPrice from "./utils/priceFormat.js";
 
 let productsHtml= ''
@@ -72,9 +72,9 @@ document.querySelectorAll('.add-to-cart-button')
         const {productId} = button.dataset; // everything that starts with data- is a dataset
         const quantity = parseInt(document.getElementById(productId).value);
         
-        //  13g - 13h
+        //  13g - 13h also 14d
         addToCart(productId,quantity);
-        updateCartQuantity();
+        document.querySelector('.cart-quantity').innerHTML = fetchCartQuantity();
 
         // 13i
         document.getElementById(`added-to-cart-${productId}`).classList.add('added-to-cart-visible')
@@ -84,10 +84,3 @@ document.querySelectorAll('.add-to-cart-button')
 
 
 
-function updateCartQuantity(){
-    let cartQuantity = 0;
-        cart.forEach(cartItem=>{
-            cartQuantity += cartItem.quantity;
-        })
-        document.querySelector('.cart-quantity').innerHTML = cartQuantity;
-}
