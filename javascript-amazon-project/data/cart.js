@@ -37,3 +37,8 @@ export function updateQuantity(productId, qty){
     localStorage.setItem('cart', JSON.stringify(cart));
 }
 
+export function updateCartQuantity() {
+    const cartQuantity = fetchCartQuantity();
+    document.querySelector('.js-return-to-home-link')
+        .innerHTML = `${cartQuantity} items`;
+}
