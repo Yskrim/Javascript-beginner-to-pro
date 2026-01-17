@@ -106,19 +106,24 @@ document.querySelector('.js-order-summary')
     .innerHTML = cartSummaryHTML;
 // console.log(cartSummaryHTML)
 
+
+
+// =================
+// delete handlers
+// =================
 document.querySelectorAll('.js-delete-link')
-    .forEach((link) => {
-        link.addEventListener('click', () => {
-            
-            const productId = link.dataset.productId;
-            removeFromCart(productId);
-            const container = document.querySelector(
-            `.js-cart-item-container-${productId}`
-            );
-            container.remove();
-            updateCartQuantity();
-        });
+.forEach((link) => {
+    link.addEventListener('click', () => {
+        
+        const productId = link.dataset.productId;
+        removeFromCart(productId);
+        const container = document.querySelector(
+        `.js-cart-item-container-${productId}`
+        );
+        container.remove();
+        updateCartQuantity();
     });
+});
 function updateCartQuantity() {
     const cartQuantity = fetchCartQuantity();
     document.querySelector('.js-return-to-home-link')
@@ -126,45 +131,74 @@ function updateCartQuantity() {
 }
 updateCartQuantity();
 
+
+// =================
+// update handlers
+// =================
 document.querySelectorAll('.js-update-link')
-    .forEach((link) => {
-        link.addEventListener('click', () => {
-            const productId = link.dataset.productId;
-            const container = document.querySelector(
-            `.js-cart-item-container-${productId}`
-            );
-            container.classList.add('is-editing-quantity');
-        });
+.forEach((link) => {
+    link.addEventListener('click', () => {
+        const productId = link.dataset.productId;
+        const container = document.querySelector(`.js-cart-item-container-${productId}`);
+        const quantityInput = document.querySelector(`.js-quantity-input-${productId}`);
+        const quantityLabel = document.querySelector(`.js-quantity-label-${productId}`);
+
+        quantityInput.type = 'number'
+        quantityInput.value = Number(quantityLabel.innerHTML);
+
+        link.classList.add('is-hidden');
+        quantityLabel.classList.add('is-hidden');
+        container.classList.add('is-editing-quantity');
     });
+});
+
+    
+// =================
+// save handlers
+// =================
 document.querySelectorAll('.js-save-link')
-    .forEach((link) => {
-        link.addEventListener('click', () => {
-            const productId = link.dataset.productId;
-    
-            const container = document.querySelector(
-            `.js-cart-item-container-${productId}`
-            );
-            container.classList.remove('is-editing-quantity');
-    
-            // Here's an example of a feature we can add: validation.
-            // Note: we need to move the quantity-related code up
-            // because if the new quantity is not valid, we should
-            // return early and NOT run the rest of the code. This
-            // technique is called an "early return".
-            const quantityInput = document.querySelector(
-            `.js-quantity-input-${productId}`
-            );
-            const newQuantity = Number(quantityInput.value);
+.forEach((link) => {
+    link.addEventListener('click', () => {
+        const productId = link.dataset.productId;
+
+        const container = document.querySelector(
+        `.js-cart-item-container-${productId}`
+        );
+        container.classList.remove('is-editing-quantity');
+
+        // Here's an example of a feature we can add: validation.
+        // Note: we need to move the quantity-related code up
+        // because if the new quantity is not valid, we should
+        // return early and NOT run the rest of the code. This
+        // technique is called an "early return".
+
+        const quantityInput = document.querySelector(`.js-quantity-input-${productId}`);
+        const quantityLabel = document.querySelector(`.js-quantity-label-${productId}`);
+        const newQuantity = Number(quantityInput.value);
 
         if (newQuantity < 0 || newQuantity >= 1000) {
             alert('Quantity must be at least 0 and less than 1000');
+            
+            container.classList.remove('is-editing-quantity');
+            container.querySelector('.js-update-link').classList.remove('is-hidden');
+            quantityInput.classList.add('is-hidden');
+            quantityLabel.classList.remove('is-hidden');
             return;
         }
-        updateQuantity(productId, newQuantity);
 
-        const quantityLabel = document.querySelector(
-            `.js-quantity-label-${productId}`
-        );
+        if (newQuantity === 0){
+            removeFromCart(productId);
+            container.remove();
+
+            updateCartQuantity();
+        }
+
+        updateQuantity(productId, newQuantity);
+        container.classList.remove('is-editing-quantity');
+        container.querySelector('.js-update-link').classList.remove('is-hidden');
+        quantityInput.classList.add('is-hidden');
+        quantityLabel.classList.remove('is-hidden');
+
         quantityLabel.innerHTML = newQuantity;
         updateCartQuantity();
     });
