@@ -8,11 +8,13 @@ import {
     updateCartQuantity
     } from '../../data/cart.js';
 import products from '../../data/products.js';
+import { getProduct } from '../../data/products.js';
 import formatPrice from '../utils/priceFormat.js';
 
 
 import dayjs from "https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js";
-import deliveryOptions from '../../data/deliveryOptions.js';
+import deliveryOptions, { getDeliveryOption } from '../../data/deliveryOptions.js';
+import { renderPaymentSummary } from './paymentSummary.js';
 
 // =================
 // html generator
@@ -21,21 +23,10 @@ function generateCartHTML(){
     let cartSummaryHTML = '';
     cart.forEach((cartItem) => {
         const productId = cartItem.productId;
-        let matchingProduct;
-        products.forEach((product) => {
-            if (product.id === productId) {
-                matchingProduct = product;
-            }
-        });
-        
-        const deliveryOptionId = cartItem.deliveryOptionId;
+        const matchingProduct = getProduct(productId)
 
-        let matchingDeliveryOption;
-        deliveryOptions.forEach(option=>{
-            if(option.id === deliveryOptionId){
-                matchingDeliveryOption = option;
-            }
-        });
+        const deliveryOptionId = cartItem.deliveryOptionId;
+        const matchingDeliveryOption = getDeliveryOption(deliveryOptionId);
 
         const dateString = dayjs().add(matchingDeliveryOption.time, 'days').format("dddd, MMMM D");
         cartSummaryHTML += `
@@ -105,7 +96,9 @@ function setupDeleteHandlers(){
             `.js-cart-item-container-${productId}`
             );
             container.remove();
-            updateCartQuantity();
+            // updateCartQuantity();
+            renderOrderSummary()
+            renderPaymentSummary();
         });
     });
 }
@@ -162,6 +155,8 @@ function saveQuantity(productId) {
         container.remove();
 
         updateCartQuantity();
+        renderOrderSummary()
+        renderPaymentSummary();
     }
 
     updateQuantity(productId, newQuantity);
@@ -172,6 +167,8 @@ function saveQuantity(productId) {
 
     quantityLabel.innerHTML = newQuantity;
     updateCartQuantity();
+    renderOrderSummary();
+    renderPaymentSummary();
 }
 
 // assigning saveQuantity() to every link
@@ -234,24 +231,17 @@ function generateDeliveryOptionsHTML(matchingProduct, cartItem){
 
 
 // ============================================
-// change elements on delivery option selection
 // update cart on every change of option
 // ============================================
 function setupDeliveryOptionSelectors(){
     document.querySelectorAll('.js-delivery-option')
     .forEach(option => {
         option.addEventListener('click', ()=>{
-    
-            // update UI
-
-            // const optionDate = e.target.parentElement.querySelector('.delivery-option-date').innerText;
-            // const container = option.closest('.cart-item-container');
-            // container.querySelector('.delivery-date').innerHTML = 'Delivery date: ' + optionDate;
-    
             // update cart
             const {productId, deliveryOptionId} = option.dataset;
             updateDeliveryOption(productId, deliveryOptionId);
             renderOrderSummary()
+            renderPaymentSummary();
         });
     });
 }
@@ -265,11 +255,4 @@ export function renderOrderSummary(){
     setupDeliveryOptionSelectors();
 }
 
-export { 
-    generateCartHTML,
-    updateCartQuantity,
-    setupDeleteHandlers,
-    setupUpdateHandlers,
-    setupSaveHandlers,
-    setupDeliveryOptionSelectors,
-}
+

@@ -58,14 +58,6 @@ function updateCartQuantity() {
         .innerHTML = `${cartQuantity} items`;
 }
 
-function fetchTotalPrice(){
-    let totalPrice = 0
-    cart.forEach(item=>{
-        totalPrice+=item.priceCents
-    });
-    return totalPrice;
-}
-
 function saveToStorage(){
     localStorage.setItem('cart', JSON.stringify(cart));
 }
@@ -73,7 +65,6 @@ function saveToStorage(){
 function updateDeliveryOption(productId, deliveryOptionId){
     cart.find(item => item.productId === productId)
         .deliveryOptionId = deliveryOptionId;
-
     saveToStorage();
 }
 
