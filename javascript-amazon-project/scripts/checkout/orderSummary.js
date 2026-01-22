@@ -15,7 +15,7 @@ import formatPrice from '../utils/priceFormat.js';
 import dayjs from "https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js";
 import deliveryOptions, { getDeliveryOption } from '../../data/deliveryOptions.js';
 import { renderPaymentSummary } from './paymentSummary.js';
-
+import renderCheckoutHeader from './chekoutHeader.js';
 // =================
 // html generator
 // =================
@@ -96,9 +96,8 @@ function setupDeleteHandlers(){
             `.js-cart-item-container-${productId}`
             );
             container.remove();
-            // updateCartQuantity();
-            renderOrderSummary()
-            renderPaymentSummary();
+
+            renderPage()
         });
     });
 }
@@ -152,33 +151,31 @@ function saveQuantity(productId) {
 
     if (newQuantity === 0){
         removeFromCart(productId);
-        container.remove();
 
-        updateCartQuantity();
-        renderOrderSummary()
-        renderPaymentSummary();
+        renderPage()
     }
-
     updateQuantity(productId, newQuantity);
-    container.classList.remove('is-editing-quantity');
-    container.querySelector('.js-update-link').classList.remove('is-hidden');
-    quantityInput.classList.add('is-hidden');
-    quantityLabel.classList.remove('is-hidden');
 
-    quantityLabel.innerHTML = newQuantity;
-    updateCartQuantity();
-    renderOrderSummary();
-    renderPaymentSummary();
+    renderPage()
 }
 
 // assigning saveQuantity() to every link
 function setupSaveHandlers(){
+    const escHandle = (e)=>{
+        if(e.key === 'Escape') {
+
+            renderPage()
+        }
+    }
+    
     document.querySelectorAll('.js-save-link')
-    .forEach((link) => {
+    .forEach((link) => {    
         link.addEventListener('click', () => {
             const productId = link.dataset.productId;
             saveQuantity(productId);
+            document.body.addEventListener('keydown', escHandle)
         });
+        document.body.removeEventListener('keydown', escHandle)
     });
 
     // call saveQuantity() on enter
@@ -197,19 +194,34 @@ function setupSaveHandlers(){
     });
 }
 
+// 15l
+function calculateDeliveryDate(opt){
+    const today = dayjs();
 
-// const summaryContainer = document.querySelector('js-order-summary')
-// console.log(summaryContainer)
+    let calendarDays=0;
+    let businessDays=0;
+
+    while(businessDays <= opt.time){
+        calendarDays++;
+        const dayname = today.add(calendarDays, 'days').format('dddd')
+        if(dayname === 'Saturday' || dayname === 'Sunday'){
+            continue
+        }
+        businessDays++;
+    }
+
+    let deliveryDate = today.add(calendarDays, 'days');
+
+    return deliveryDate;
+}
+
 
 function generateDeliveryOptionsHTML(matchingProduct, cartItem){
     let html = '';
-    const today = dayjs();
     deliveryOptions.forEach(opt=>{
-        const deliveryDate = today.add(opt.time, 'days')
+        const deliveryDate = calculateDeliveryDate(opt);
         const priceString = opt.priceCents === 0 ? "FREE" : `$${formatPrice(opt.priceCents)} -`
-
         const isChecked = opt.id === cartItem.deliveryOptionId;
-
         html += `
             <div class="delivery-option js-delivery-option" data-delivery-option-id="${opt.id}" data-product-id="${matchingProduct.id}">
                 <input type="radio" ${ isChecked ? 'checked' : '' }
@@ -240,19 +252,24 @@ function setupDeliveryOptionSelectors(){
             // update cart
             const {productId, deliveryOptionId} = option.dataset;
             updateDeliveryOption(productId, deliveryOptionId);
-            renderOrderSummary()
-            renderPaymentSummary();
+            
+            renderPage()
         });
     });
 }
 
-export function renderOrderSummary(){
+function renderOrderSummary(){
     generateCartHTML();
-    updateCartQuantity();
+    updateCartQuantity(); /* 15k */
     setupDeleteHandlers();
     setupUpdateHandlers();
     setupSaveHandlers();
     setupDeliveryOptionSelectors();
 }
 
+export function renderPage(){
+    renderCheckoutHeader();
+    renderOrderSummary()
+    renderPaymentSummary();
+}
 

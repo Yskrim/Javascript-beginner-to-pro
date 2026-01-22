@@ -53,6 +53,7 @@ function updateQuantity(productId, qty){
 }
 
 function updateCartQuantity() {
+    /* 15j */
     const cartQuantity = fetchCartQuantity();
     document.querySelector('.js-return-to-home-link')
         .innerHTML = `${cartQuantity} items`;

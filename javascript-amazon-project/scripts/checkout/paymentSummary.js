@@ -24,7 +24,7 @@ export function renderPaymentSummary(){
         <div class="payment-summary-title">Order Summary</div>
 
           <div class="payment-summary-row js-payment-summary">
-            <div>Items (${fetchCartQuantity()}):</div>
+            <div>Items (${fetchCartQuantity() /* 15i */}):</div>
             <div class="payment-summary-money">$${formatPrice(productPriceCents)}</div>
           </div>
 
