@@ -1,21 +1,11 @@
-import {
-    cart,
-    removeFromCart,
-    fetchCartQuantity,
-    saveToStorage,
-    updateDeliveryOption,
-    updateQuantity,
-    updateCartQuantity
-    } from '../../data/cart.js';
-import products from '../../data/products.js';
+import { cart, removeFromCart, updateDeliveryOption, updateQuantityInStorage, updateCartQuantity } from '../../data/cart.js';
 import { getProduct } from '../../data/products.js';
 import formatPrice from '../utils/priceFormat.js';
-
-
 import dayjs from "https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js";
 import deliveryOptions, { getDeliveryOption } from '../../data/deliveryOptions.js';
 import { renderPaymentSummary } from './paymentSummary.js';
 import renderCheckoutHeader from './chekoutHeader.js';
+
 // =================
 // html generator
 // =================
@@ -80,7 +70,6 @@ function generateCartHTML(){
     document.querySelector('.js-order-summary')
         .innerHTML = cartSummaryHTML;
 }
-
     
 // =================
 // delete handlers
@@ -117,9 +106,7 @@ function setupUpdateHandlers(){
             quantityInput.type = 'number'
             quantityInput.value = Number(quantityLabel.innerHTML);
             
-            link.classList.add('is-hidden');
-            quantityLabel.classList.add('is-hidden');
-            container.classList.add('is-editing-quantity');
+            addEditingState(container, link, quantityLabel);
         });
     });
 }
@@ -130,71 +117,74 @@ function setupUpdateHandlers(){
 
 // funciton that handles 'save' operation
 function saveQuantity(productId) {
-    const container = document.querySelector(
-        `.js-cart-item-container-${productId}`
-    );
-    container.classList.remove('is-editing-quantity');
-
+    const container = document.querySelector(`.js-cart-item-container-${productId}`);
     const quantityInput = document.querySelector(`.js-quantity-input-${productId}`);
     const quantityLabel = document.querySelector(`.js-quantity-label-${productId}`);
     const newQuantity = Number(quantityInput.value);
 
     if (newQuantity < 0 || newQuantity >= 1000) {
         alert('Quantity must be at least 0 and less than 1000');
-        
-        container.classList.remove('is-editing-quantity');
-        container.querySelector('.js-update-link').classList.remove('is-hidden');
-        quantityInput.classList.add('is-hidden');
-        quantityLabel.classList.remove('is-hidden');
+        removeEditingState(container, quantityInput, quantityLabel)
         return;
     }
 
     if (newQuantity === 0){
         removeFromCart(productId);
-
-        renderPage()
+        renderPage() // 15n
     }
-    updateQuantity(productId, newQuantity);
 
-    renderPage()
+    updateQuantityInStorage(productId, newQuantity);
+    renderPage() // 15n
 }
 
-// assigning saveQuantity() to every link
-function setupSaveHandlers(){
-    const escHandle = (e)=>{
-        if(e.key === 'Escape') {
+function removeEditingState(container, quantityInput, quantityLabel){
+    container.classList.remove('is-editing-quantity');
+    container.querySelector('.js-update-link').classList.remove('is-hidden');
+    quantityInput.classList.add('is-hidden');
+    quantityLabel.classList.remove('is-hidden');
+}
 
-            renderPage()
-        }
-    }
+function addEditingState(container, link, quantityLabel){
+    link.classList.add('is-hidden');
+    quantityLabel.classList.add('is-hidden');
+    container.classList.add('is-editing-quantity');
+}
+
+function setupSaveHandlers(){
     
     document.querySelectorAll('.js-save-link')
     .forEach((link) => {    
         link.addEventListener('click', () => {
             const productId = link.dataset.productId;
             saveQuantity(productId);
-            document.body.addEventListener('keydown', escHandle)
         });
-        document.body.removeEventListener('keydown', escHandle)
     });
-
-    // call saveQuantity() on enter
+    
     const qtyInputs = document.querySelectorAll(".quantity-input");
     qtyInputs.forEach(input => {
         input.addEventListener('keydown', (e) => {
             if(e.key === 'Enter') {
                 const container = input.closest('.cart-item-container');
                 const saveBtn = container.querySelector('.save-quantity-link');
-                if(saveBtn) {
-                    const productId = saveBtn.dataset.productId;
-                    saveQuantity(productId);
-                }
+                const productId = saveBtn.dataset.productId;
+                
+                saveQuantity(productId);
+            }
+
+            if(e.key === 'Escape'){
+                const container = input.closest('.cart-item-container');
+                const saveBtn = container.querySelector('.save-quantity-link');
+                const productId = saveBtn.dataset.productId;
+                const quantityInput = document.querySelector(`.js-quantity-input-${productId}`);
+                const quantityLabel = document.querySelector(`.js-quantity-label-${productId}`);
+
+                removeEditingState(container, quantityInput, quantityLabel);
             }
         });
     });
 }
 
-// 15l
+// 15l, 15m
 function calculateDeliveryDate(opt){
     const today = dayjs();
 
@@ -210,8 +200,7 @@ function calculateDeliveryDate(opt){
         businessDays++;
     }
 
-    let deliveryDate = today.add(calendarDays, 'days');
-
+    const deliveryDate = today.add(calendarDays, 'days');
     return deliveryDate;
 }
 
@@ -268,7 +257,7 @@ function renderOrderSummary(){
 }
 
 export function renderPage(){
-    renderCheckoutHeader();
+    renderCheckoutHeader(); // 15j
     renderOrderSummary()
     renderPaymentSummary();
 }

@@ -43,7 +43,7 @@ function removeFromCart(productId){
     localStorage.setItem('cart', JSON.stringify(cart));
 }
 
-function updateQuantity(productId, qty){
+function updateQuantityInStorage(productId, qty){
     cart = cart.map(item => 
         item.productId === productId 
             ? { ...item, quantity: Number(qty) } 
@@ -69,4 +69,4 @@ function updateDeliveryOption(productId, deliveryOptionId){
     saveToStorage();
 }
 
-export { cart, addToCart, fetchCartQuantity, removeFromCart, updateCartQuantity, updateQuantity, saveToStorage, updateDeliveryOption }
+export { cart, addToCart, fetchCartQuantity, removeFromCart, updateCartQuantity, updateQuantityInStorage, saveToStorage, updateDeliveryOption }
