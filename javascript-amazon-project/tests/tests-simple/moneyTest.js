@@ -1,4 +1,4 @@
-import formatPrice from "../../scripts/utils/priceFormat";
+import formatPrice from "../../scripts/utils/priceFormat.js";
 
 const testCases = [
     { 
@@ -14,15 +14,19 @@ const testCases = [
         expected : '20.01'
     },
     { 
+        price : 2000.4, //16a -- mathematically rounds up to the nearest cent
+        expected : '20.00'
+    },
+    { 
         price : 'a',
         expected : 'NaN'
     },
     { 
-        price : -1,
+        price : -1, // 16b - I decided to let this function accept negative values
         expected : '-0.01'
     },
     { 
-        price : -100,
+        price : -100, //16b
         expected : '-1.00'
     },
 ]
