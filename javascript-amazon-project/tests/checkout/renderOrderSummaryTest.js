@@ -47,6 +47,8 @@ describe('Test suite: renderOrderSummary', ()=>{
         expect(document.querySelector(`.js-product-name-${ids[0]}`).innerText).toContain('Black and Gray Athletic Cotton Socks - 6 Pairs') // 16g
         expect(document.querySelector(`.js-product-quantity-${ids[1]}`).innerText).toContain('Quantity: 1')
         expect(document.querySelector(`.js-product-name-${ids[1]}`).innerText).toContain('Intermediate Size Basketball') //16g
+        
+        document.querySelectorAll('.payment-summary-money').forEach(item => expect(item.innerText[0]).toBe('$')) // 16h -- check every price item to begin with $
     });
 
     // how the page behaves
