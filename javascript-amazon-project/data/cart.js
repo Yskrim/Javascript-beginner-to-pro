@@ -75,8 +75,12 @@ function saveToStorage(){
 }
 
 function updateDeliveryOption(productId, deliveryOptionId){
-    cart.find(item => item.productId === productId)
-        .deliveryOptionId = deliveryOptionId;
+    let item = cart.find(item => item.productId === productId);
+    
+    if (!item)
+        return
+
+    item.deliveryOptionId = deliveryOptionId;
     saveToStorage();
 }
 

@@ -119,5 +119,5 @@ describe('Test suite:addToCart', ()=>{
                 deliveryOptionId: '1',
             }])
         );  
-    })
+    });
 })
