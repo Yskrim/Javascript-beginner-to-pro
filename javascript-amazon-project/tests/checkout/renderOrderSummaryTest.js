@@ -2,6 +2,7 @@
 import { renderOrderSummary, renderPage } from '../../scripts/checkout/orderSummary.js'
 import { loadFromStorage, cart } from "../../data/cart.js";
 import { renderPaymentSummary } from '../../scripts/checkout/paymentSummary.js';
+import deliveryOptions from '../../data/deliveryOptions.js';
 
 
 describe('Test suite: renderOrderSummary', ()=>{
@@ -79,5 +80,24 @@ describe('Test suite: renderOrderSummary', ()=>{
         expect(document.querySelectorAll('.js-cart-item-container').length).toEqual(0);
         expect(document.querySelector(`.js-delete-link-${ids[0]}`)).toEqual(null)
         expect(document.querySelector(`.js-delete-link-${ids[1]}`)).toEqual(null)
-    })
+    });
+
+    it('Updates the delivery option on radio button click', ()=>{     //16j
+        //before click
+        expect(cart[0].deliveryOptionId).toEqual('1');
+        expect(document.querySelector(`.js-delivery-option-product-${ids[0]}-${1}`).querySelector(`.js-delivery-option-input-${ids[0]}-${1}`).checked).toBe(true)
+        
+        //click
+        let deliveryOption = 3;
+        document.querySelector(`.js-delivery-option-product-${ids[0]}-${deliveryOption}`).querySelector(`.js-delivery-option-input-${ids[0]}-${deliveryOption}`).click();
+
+        // after click
+        expect(cart[0].deliveryOptionId).toEqual('3');
+        expect(document.querySelector(`.js-delivery-option-product-${ids[0]}-${deliveryOption}`).querySelector(`.js-delivery-option-input-${ids[0]}-${deliveryOption}`).checked).toBe(true);
+        expect(document.querySelector(`.js-shipping-price`).innerText).toEqual("$14.98")
+        expect(document.querySelector(`.js-total-price`).innerText).toEqual("$63.50")
+        
+    });
+
+
 });

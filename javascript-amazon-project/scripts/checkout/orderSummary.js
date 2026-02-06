@@ -209,9 +209,9 @@ function generateDeliveryOptionsHTML(matchingProduct, cartItem){
         const priceString = opt.priceCents === 0 ? "FREE" : `$${formatPrice(opt.priceCents)} -`
         const isChecked = opt.id === cartItem.deliveryOptionId;
         html += `
-            <div class="delivery-option js-delivery-option" data-delivery-option-id="${opt.id}" data-product-id="${matchingProduct.id}">
+            <div class="delivery-option js-delivery-option js-delivery-option-product-${matchingProduct.id}-${opt.id}" data-delivery-option-id="${opt.id}" data-product-id="${matchingProduct.id}">
                 <input type="radio" ${ isChecked ? 'checked' : '' }
-                    class="delivery-option-input"
+                    class="delivery-option-input js-delivery-option-input-${matchingProduct.id}-${opt.id}"
                     name="delivery-option-${matchingProduct.id}">
                 <div>
                     <div class="delivery-option-date">
