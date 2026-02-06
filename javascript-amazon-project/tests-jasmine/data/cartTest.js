@@ -1,3 +1,4 @@
+// this is a unit test because we're testing a signle unit that performs a single function.
 import { cart, addToCart, loadFromStorage } from "../../data/cart.js";
 
 describe('Test suite:addToCart', ()=>{
