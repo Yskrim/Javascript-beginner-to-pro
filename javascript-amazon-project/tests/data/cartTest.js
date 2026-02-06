@@ -1,5 +1,5 @@
 // this is a unit test because we're testing a signle unit that performs a single function.
-import { cart, addToCart, loadFromStorage, removeFromCart } from "../../data/cart.js";
+import { cart, addToCart, loadFromStorage, removeFromCart, updateDeliveryOption } from "../../data/cart.js";
 
 describe('Test suite:addToCart', ()=>{
 
@@ -87,4 +87,37 @@ describe('Test suite:addToCart', ()=>{
         expect(cart.length).toEqual(1);     // still one thing inside the cart
         expect(localStorage.setItem).toHaveBeenCalledTimes(1);      // no new calls for storage update
     });
+
+    it('Updates the delivery option in the cart', ()=>{
+        spyOn(localStorage, 'getItem').and.callFake(()=>{
+            return JSON.stringify([      // preset the cart to only have one productid in it quantity is irrelevant
+                {
+                    productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
+                    quantity: 2,
+                    deliveryOptionId: '1',
+                },
+                {
+                    productId: '15b6fc6f-327a-4ec4-896f-486349e85a3d',
+                    quantity: 1,
+                    deliveryOptionId: '1',
+                }])
+            });
+        loadFromStorage();
+
+        updateDeliveryOption('e43638ce-6aa0-4b85-b27f-e1d07eb678c6', '3');
+        expect(cart[0].deliveryOptionId).toEqual('3');  // correct value
+        expect(localStorage.setItem).toHaveBeenCalledTimes(1); // correct number of calls
+        expect(localStorage.setItem).toHaveBeenCalledWith('cart', JSON.stringify([
+            {
+                productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
+                quantity: 2,
+                deliveryOptionId: '3', // updated value
+            },
+            {
+                productId: '15b6fc6f-327a-4ec4-896f-486349e85a3d',
+                quantity: 1,
+                deliveryOptionId: '1',
+            }])
+        );  
+    })
 })
