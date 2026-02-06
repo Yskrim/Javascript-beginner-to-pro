@@ -1,22 +1,29 @@
 
-let cart = JSON.parse(localStorage.getItem('cart'))
-if(!cart){
-    cart = [
-        {
-            productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
-            quantity: 2,
-            deliveryOptionId: '1',
-        },
-        {
-            productId: '15b6fc6f-327a-4ec4-896f-486349e85a3d',
-            quantity: 2,
-            deliveryOptionId: '2',
-        },
-    ]
-} 
+let cart;
+
+loadFromStorage();
 
 
-function addToCart(productId, quantity, deliveryOptionId = '1'){
+function loadFromStorage(){
+    cart = JSON.parse(localStorage.getItem('cart'))
+
+    if(!cart){
+        cart = [
+            {
+                productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
+                quantity: 2,
+                deliveryOptionId: '1',
+            },
+            {
+                productId: '15b6fc6f-327a-4ec4-896f-486349e85a3d',
+                quantity: 2,
+                deliveryOptionId: '2',
+            },
+        ]
+    } 
+}
+
+function addToCart(productId, quantity = 1, deliveryOptionId = '1'){
     let matchingItem;
     cart.forEach(cartItem=>{
         if(productId===cartItem.productId)
@@ -69,4 +76,4 @@ function updateDeliveryOption(productId, deliveryOptionId){
     saveToStorage();
 }
 
-export { cart, addToCart, fetchCartQuantity, removeFromCart, updateCartQuantity, updateQuantityInStorage, saveToStorage, updateDeliveryOption }
+export { cart, addToCart, loadFromStorage, fetchCartQuantity, removeFromCart, updateCartQuantity, updateQuantityInStorage, saveToStorage, updateDeliveryOption }

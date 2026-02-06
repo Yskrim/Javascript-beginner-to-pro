@@ -1,4 +1,4 @@
-import formatPrice from "../scripts/utils/priceFormat.js";
+import formatPrice from "../../scripts/utils/priceFormat.js";
 
 describe('test suite: formatPrice', ()=>{
     it('converts cents to dollars', ()=>{
