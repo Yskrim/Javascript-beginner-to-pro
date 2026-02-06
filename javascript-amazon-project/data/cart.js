@@ -48,8 +48,10 @@ function fetchCartQuantity(){
 }
 
 function removeFromCart(productId){
-    cart = cart.filter(item=>item.productId !== productId);
-    localStorage.setItem('cart', JSON.stringify(cart));
+    if(cart.find(item => item.productId === productId)){
+        cart = cart.filter(item=>item.productId !== productId);
+        localStorage.setItem('cart', JSON.stringify(cart));
+    }
 }
 
 function updateQuantityInStorage(productId, qty){
