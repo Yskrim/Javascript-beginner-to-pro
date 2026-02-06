@@ -42,12 +42,11 @@ describe('Test suite: renderOrderSummary', ()=>{
 
     // how the page looks
     it('displays the cart', ()=>{
-        expect(document.querySelectorAll('.js-cart-item-container').length)
-            .toEqual(2)
-        expect(document.querySelector(`.js-product-quantity-${ids[0]}`).innerText)
-            .toContain('Quantity: 2')
-        expect(document.querySelector(`.js-product-quantity-${ids[1]}`).innerText)
-            .toContain('Quantity: 1')
+        expect(document.querySelectorAll('.js-cart-item-container').length).toEqual(2)
+        expect(document.querySelector(`.js-product-quantity-${ids[0]}`).innerText).toContain('Quantity: 2')
+        expect(document.querySelector(`.js-product-name-${ids[0]}`).innerText).toContain('Black and Gray Athletic Cotton Socks - 6 Pairs') // 16g
+        expect(document.querySelector(`.js-product-quantity-${ids[1]}`).innerText).toContain('Quantity: 1')
+        expect(document.querySelector(`.js-product-name-${ids[1]}`).innerText).toContain('Intermediate Size Basketball') //16g
     });
 
     // how the page behaves
