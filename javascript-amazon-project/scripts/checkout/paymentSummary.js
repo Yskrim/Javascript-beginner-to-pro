@@ -1,6 +1,6 @@
 import { cart, fetchCartQuantity } from "../../data/cart.js";
 import { getProduct } from "../../data/products.js";
-import deliveryOptions, { getDeliveryOption } from '../../data/deliveryOptions.js';
+import { getDeliveryOption } from '../../data/deliveryOptions.js';
 import formatPrice from "../utils/priceFormat.js";
 
 

@@ -3,8 +3,7 @@ import { getProduct } from '../../data/products.js';
 import formatPrice from '../utils/priceFormat.js';
 import dayjs from "https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js";
 import deliveryOptions, { getDeliveryOption } from '../../data/deliveryOptions.js';
-import { renderPaymentSummary } from './paymentSummary.js';
-import renderCheckoutHeader from './chekoutHeader.js';
+import { renderPage } from '../checkout.js';
 
 // =================
 // html generator
@@ -201,7 +200,6 @@ function calculateDeliveryDate(opt){
     return deliveryDate;
 }
 
-
 function generateDeliveryOptionsHTML(matchingProduct, cartItem){
     let html = '';
     deliveryOptions.forEach(opt=>{
@@ -251,11 +249,5 @@ export function renderOrderSummary(){
     setupUpdateHandlers();
     setupSaveHandlers();
     setupDeliveryOptionSelectors();
-}
-
-export function renderPage(){
-    renderCheckoutHeader(); // 15j
-    renderOrderSummary()
-    renderPaymentSummary();
 }
 

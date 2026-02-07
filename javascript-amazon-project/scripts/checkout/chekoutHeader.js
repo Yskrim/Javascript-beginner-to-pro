@@ -1,6 +1,6 @@
 import { fetchCartQuantity } from "../../data/cart.js";
 
-export default function renderCheckoutHeader(){
+export function renderCheckoutHeader(){
     document.querySelector('.js-checkout-header').innerHTML = 
         `
             <div class="header-content">
