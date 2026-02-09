@@ -3,7 +3,8 @@ import { getProduct } from '../../data/products.js';
 import formatPrice from '../utils/priceFormat.js';
 import dayjs from "https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js";
 import deliveryOptions, { getDeliveryOption } from '../../data/deliveryOptions.js';
-import { renderPage } from '../checkout.js';
+import renderPage from '../checkout.js';
+import { renderCheckoutHeader } from './chekoutHeader.js';
 
 // =================
 // html generator
@@ -33,7 +34,7 @@ function generateCartHTML(){
                         ${matchingProduct.name}
                     </div>
                     <div class="product-price">
-                        $${formatPrice(matchingProduct.priceCents)}
+                        $${matchingProduct.getPrice()}
                     </div>
                     <div class="product-quantity js-product-quantity-${matchingProduct.id}">
                         <span>
@@ -243,6 +244,7 @@ function setupDeliveryOptionSelectors(){
 }
 
 export function renderOrderSummary(){
+    renderCheckoutHeader()
     generateCartHTML();
     updateCartQuantity(); /* 15k */
     setupDeleteHandlers();

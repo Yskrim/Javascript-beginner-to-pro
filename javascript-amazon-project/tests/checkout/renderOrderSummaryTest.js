@@ -1,8 +1,6 @@
 // this is an integration test because the function we're testing consists of multiple of funcitons and libraries and do not count as a single unit
-import { renderOrderSummary, renderPage } from '../../scripts/checkout/orderSummary.js'
 import { loadFromStorage, cart } from "../../data/cart.js";
-import { renderPaymentSummary } from '../../scripts/checkout/paymentSummary.js';
-import deliveryOptions from '../../data/deliveryOptions.js';
+import renderPage from '../../scripts/checkout.js';
 
 
 describe('Test suite: renderOrderSummary', ()=>{
@@ -10,12 +8,10 @@ describe('Test suite: renderOrderSummary', ()=>{
 
     beforeEach(()=>{
         document.querySelector('.js-test-container').innerHTML = `
-        <div> 
             <div class="js-checkout-header"></div>
             <div class="js-return-to-home-link"></div>
             <div class="js-payment-summary"></div>
             <div class="js-order-summary"></div>
-        </div>
         `;
 
         spyOn(localStorage, 'setItem');
