@@ -13,22 +13,22 @@ const DefaultCartItems = [{
 
 class Cart {
     cartItems = undefined;
-    localStorageKey = undefined;
+    #localStorageKey = undefined;  // #name is a sign of a private property that cannot be accessed from outside
     
     constructor(localStorageKey){
-        this.localStorageKey = localStorageKey;
-        this.loadFromStorage();
+        this.#localStorageKey = localStorageKey;
+        this.#loadFromStorage();
     }
 
-    loadFromStorage() {
-        this.cartItems = JSON.parse(localStorage.getItem(this.localStorageKey));
+    #loadFromStorage() {
+        this.cartItems = JSON.parse(localStorage.getItem(this.#localStorageKey));
         
         if(!this.cartItems)
             this.cartItems = DefaultCartItems;
     }
 
     saveToStorage(){
-        localStorage.setItem(this.localStorageKey, JSON.stringify(this.cartItems));
+        localStorage.setItem(this.#localStorageKey, JSON.stringify(this.cartItems));
     }
 
     addToCart(productId, quantity = 1, deliveryOptionId = '1'){
@@ -51,7 +51,7 @@ class Cart {
     removeFromCart(productId){
         if(this.cartItems.find(item => item.productId === productId)){
             this.cartItems = this.cartItems.filter(item=>item.productId !== productId);
-            localStorage.setItem(this.localStorageKey, JSON.stringify(this.cartItems));
+            localStorage.setItem(this.#localStorageKey, JSON.stringify(this.cartItems));
         }
     }
     
@@ -61,7 +61,7 @@ class Cart {
                 ? { ...item, quantity: Number(qty) } 
                 : item
         );
-        localStorage.setItem(this.localStorageKey, JSON.stringify(this.cartItems));
+        localStorage.setItem(this.#localStorageKey, JSON.stringify(this.cartItems));
     }
     
     updateCartQuantity() {
