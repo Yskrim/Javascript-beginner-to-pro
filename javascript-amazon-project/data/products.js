@@ -36,6 +36,24 @@ class Product { //converting an object into a class(enhanced version of obj)
 	getPrice() {
 		return `$${formatPrice(this.priceCents)}`
 	}
+
+	extraInfoHTML() { return '' }
+}
+
+class Clothing extends Product {
+	sizeChartLink;
+
+	constructor(productDetails){ // by default parent constructor works if new one is not specified, making it basically the same class as parent
+		super(productDetails); // calls parent constructor() method
+		this.sizeChartLink = productDetails.sizeChartLink
+	}
+
+	extraInfoHTML() {  // method overriding == change the parent's method with the same name with new code to update it on the instance of the child Class
+		super.extraInfoHTML();
+		return `
+			<a href="${this.sizeChartLink}" target="_blank">Size chart</a>
+		`;
+	}
 }
 
 const productDetails = [
@@ -69,7 +87,7 @@ const productDetails = [
 		]
 	},
 	{
-	id: "83d4ca15-0f35-48f5-b7a3-1ea210004f2e",
+		id: "83d4ca15-0f35-48f5-b7a3-1ea210004f2e",
 		image: "images/products/adults-plain-cotton-tshirt-2-pack-teal.jpg",
 		name: "Adults Plain Cotton T-Shirt - 2 Pack",
 		rating: {
@@ -82,8 +100,8 @@ const productDetails = [
 			"apparel",
 			"mens"
 		],
-	type: "clothing",
-sizeChartLink: "images/clothing-size-chart.png"
+		type: "clothing", // class discriminator property
+		sizeChartLink: "images/clothing-size-chart.png"
   },
 	{
 		id: "54e0eccd-8f36-462b-b68a-8182611d9add",
@@ -699,7 +717,10 @@ type: "clothing",
 }
 ];
 
-const products = productDetails.map(obj => new Product(obj))
-console.log(products)
+const products = productDetails.map(obj => {
+	if(obj.type === 'clothing') return new Clothing(obj)
+	return new Product(obj)
+})
 
+export { Product, Clothing };
 export default products;

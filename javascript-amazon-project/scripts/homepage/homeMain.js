@@ -1,7 +1,7 @@
-import products from "../../data/products.js";
+import products, { Product, Clothing } from "../../data/products.js";
 import animateAddedToCart from "../utils/animateAddedToCart.js.js";
-import {cart, addToCart, fetchCartQuantity} from "../../data/cart.js"
-import formatPrice from "../utils/priceFormat.js";
+import { addToCart, fetchCartQuantity} from "../../data/cart.js"
+
 
 
 function generateProductsHTML(){
@@ -44,6 +44,9 @@ function generateProductsHTML(){
                     <option value="10">10</option>
                     </select>
                 </div>
+
+                ${p.extraInfoHTML()}
+
     
                 <div class="product-spacer"></div>
     
