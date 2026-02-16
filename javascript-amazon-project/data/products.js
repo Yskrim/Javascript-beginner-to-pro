@@ -56,6 +56,23 @@ class Clothing extends Product {
 	}
 }
 
+class Appliance extends Product{
+	instructionsLink;
+	warrantyLink;
+
+	constructor(details){
+		super(details);
+		this.instructionsLink = details.instructionsLink ?? 'images/appliance-instructions.png';
+		this.warrantyLink = details.warrantyLink ?? 'images/appliance-warranty.png';
+	}
+
+	extraInfoHTML(){
+		return `<a href="${this.instructionsLink}" target="_blank">Instructions</a>
+		<a href="${this.warrantyLink}" target="_blank">Warranty</a>`
+		
+	}
+}
+
 const productDetails = [
 	{
 		id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
@@ -221,11 +238,10 @@ const productDetails = [
 			"robe",
 			"swimsuit",
 			"swimming",
-		"bathing",
-		"apparel"
-],
-    type: "clothing",
-    sizeChartLink: "images/clothing-size-chart.png"
+			"bathing",
+			"apparel"],
+    	type: "clothing",
+    	sizeChartLink: "images/clothing-size-chart.png"
   },
 	{
 		id: "aad29d11-ea98-41ee-9285-b916638cac4a",
@@ -316,10 +332,10 @@ const productDetails = [
 			"kleenex",
 			"tissues",
 			"kitchen",
-		"tissues box",
-		"napkins"
-]
-  },
+			"tissues box",
+			"napkins"
+		]
+  	},
 	{
 		id: "a82c6bac-3067-4e68-a5ba-d827ac0be010",
 		image: "images/products/straw-sunhat.webp",
@@ -333,9 +349,9 @@ const productDetails = [
 			"hats",
 			"straw hats",
 			"summer",
-		"apparel"
-	]
-},
+			"apparel"
+		]
+	},
 	{
 		id: "e4f64a65-1377-42bc-89a5-e572d19252e2",
 		image: "images/products/sky-flower-stud-earrings.webp",
@@ -718,8 +734,9 @@ type: "clothing",
 ];
 
 const products = productDetails.map(obj => {
-	if(obj.type === 'clothing') return new Clothing(obj)
-	return new Product(obj)
+	if(obj.type === 'clothing') return new Clothing(obj);
+	if(obj.keywords.includes('appliances')) return new Appliance(obj);
+	return new Product(obj);
 })
 
 export default products;

@@ -50,12 +50,9 @@ function generateProductsHTML(){
     
                 <div class="product-spacer"></div>
     
-                <div class="added-to-cart">
-                    <img src="images/icons/checkmark.png">
-                    Added
-                </div>
+
                 <div class='added-to-cart' id="added-to-cart-${p.id}">
-                    <img src="https://cdn-icons-png.flaticon.com/512/5610/5610944.png">
+                    <img src="images/icons/checkmark.png">
                     Added
                 </div>
                 <button class="add-to-cart-button button-primary" data-product-id="${p.id}">
