@@ -1,6 +1,7 @@
 import products from "../../data/products.js";
 import animateAddedToCart from "../utils/animateAddedToCart.js.js";
 import { addToCart, fetchCartQuantity} from "../../data/cart.js"
+import { cart } from "../../data/cart-class.js";
 
 
 
@@ -76,7 +77,7 @@ function setupAddHandlers(){
             const quantity = parseInt(document.getElementById(productId).value);
             
             //  13g - 13h also 14d
-            addToCart(productId,quantity);
+            cart.addToCart(productId,quantity);
             document.querySelector('.cart-quantity').innerHTML = fetchCartQuantity();
     
             // 13i
@@ -87,7 +88,6 @@ function setupAddHandlers(){
 }
 
 export default function renderProducts(){
-
     generateProductsHTML();
     setupAddHandlers();
 }

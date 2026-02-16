@@ -11,7 +11,7 @@ const DefaultCartItems = [{
 }];
 
 
-class Cart {
+export class Cart {
     cartItems = undefined;
     #localStorageKey = undefined;  // #name is a sign of a private property that cannot be accessed from outside
     
@@ -65,7 +65,7 @@ class Cart {
     }
     
     updateCartQuantity() {
-        const cartQuantity = fetchCartQuantity();
+        const cartQuantity = cart.fetchCartQuantity();
         document.querySelector('.js-return-to-home-link')
             .innerHTML = `${cartQuantity} items`;
     }
@@ -85,11 +85,5 @@ class Cart {
     }
 }
 
-const cart = new Cart('cart-class')
-// const businessCart = new Cart('business-cart-class')
-
-// console.log(cart)
-// console.log(businessCart)
-// console.log(businessCart instanceof Cart)
-
-export default cart;
+const localStorageKey = 'cart-class'
+export const cart = new Cart(localStorageKey);

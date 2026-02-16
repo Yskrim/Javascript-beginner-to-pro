@@ -1,6 +1,8 @@
 import { fetchCartQuantity } from "../../data/cart.js";
+import { cart } from "../../data/cart-class.js";
 
 function generateHeaderHTML(){
+    const cartQty = cart.fetchCartQuantity()
     const headerContainerHTML = `
         <div class="amazon-header">
             <div class="amazon-header-left-section">
@@ -28,7 +30,7 @@ function generateHeaderHTML(){
 
                 <a class="cart-link header-link" href="checkout.html">
                 <img class="cart-icon" src="images/icons/cart-icon.png">
-                <div class="cart-quantity">${fetchCartQuantity()>0 ? fetchCartQuantity() : ''}</div> 
+                <div class="cart-quantity">${cartQty > 0 ? cartQty : ''}</div> 
                 <div class="cart-text">Cart</div>
                 </a>
             </div>

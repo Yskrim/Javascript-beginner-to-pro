@@ -1,4 +1,5 @@
-import { cart, removeFromCart, updateDeliveryOption, updateQuantityInStorage, updateCartQuantity } from '../../data/cart.js';
+// import { cart, removeFromCart, updateDeliveryOption, updateQuantityInStorage, updateCartQuantity } from '../../data/cart.js';
+import { cart } from '../../data/cart-class.js';
 import { getProduct } from '../../data/products.js';
 import formatPrice from '../utils/priceFormat.js';
 import dayjs from "https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js";
@@ -11,7 +12,7 @@ import { renderCheckoutHeader } from './chekoutHeader.js';
 // =================
 function generateCartHTML(){
     let cartSummaryHTML = '';
-    cart.forEach((cartItem) => {
+    cart.cartItems.forEach((cartItem) => {
         const productId = cartItem.productId;
         const matchingProduct = getProduct(productId)
 
@@ -34,7 +35,7 @@ function generateCartHTML(){
                         ${matchingProduct.name}
                     </div>
                     <div class="product-price">
-                        $${matchingProduct.getPrice()}
+                        ${matchingProduct.getPrice()}
                     </div>
                     <div class="product-quantity js-product-quantity-${matchingProduct.id}">
                         <span>
@@ -78,7 +79,7 @@ function setupDeleteHandlers(){
     .forEach((link) => {
         link.addEventListener('click', () => {
             const productId = link.dataset.productId;
-            removeFromCart(productId);
+            cart.removeFromCart(productId);
 
             const container = document.querySelector(`.js-cart-item-container-${productId}`);
             
@@ -126,11 +127,11 @@ function saveQuantity(productId) {
     }
 
     if (newQuantity === 0){
-        removeFromCart(productId);
+        cart.removeFromCart(productId);
         renderPage() // 15n
     }
 
-    updateQuantityInStorage(productId, newQuantity);
+    cart.updateQuantityInStorage(productId, newQuantity);
     renderPage() // 15n
 }
 
@@ -236,7 +237,7 @@ function setupDeliveryOptionSelectors(){
         option.addEventListener('click', ()=>{
             // update cart
             const {productId, deliveryOptionId} = option.dataset;
-            updateDeliveryOption(productId, deliveryOptionId);
+            cart.updateDeliveryOption(productId, deliveryOptionId);
             
             renderPage()
         });
@@ -246,7 +247,7 @@ function setupDeliveryOptionSelectors(){
 export function renderOrderSummary(){
     renderCheckoutHeader()
     generateCartHTML();
-    updateCartQuantity(); /* 15k */
+    cart.updateCartQuantity(); /* 15k */
     setupDeleteHandlers();
     setupUpdateHandlers();
     setupSaveHandlers();
