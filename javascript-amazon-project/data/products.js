@@ -12,7 +12,7 @@ export function getProduct(productId){
   	return matchingProduct
 }
 
-class Product { //converting an object into a class(enhanced version of obj)
+export class Product { //converting an object into a class(enhanced version of obj)
 	id;
 	image;
 	name;
@@ -40,7 +40,7 @@ class Product { //converting an object into a class(enhanced version of obj)
 	extraInfoHTML() { return '' }
 }
 
-class Clothing extends Product {
+export class Clothing extends Product {
 	sizeChartLink;
 
 	constructor(productDetails){ // by default parent constructor works if new one is not specified, making it basically the same class as parent
@@ -50,13 +50,11 @@ class Clothing extends Product {
 
 	extraInfoHTML() {  // method overriding == change the parent's method with the same name with new code to update it on the instance of the child Class
 		super.extraInfoHTML();
-		return `
-			<a href="${this.sizeChartLink}" target="_blank">Size chart</a>
-		`;
+		return `<a href="${this.sizeChartLink}" target="_blank">Size chart</a>`;
 	}
 }
 
-class Appliance extends Product{
+export class Appliance extends Product{
 	instructionsLink;
 	warrantyLink;
 
@@ -67,9 +65,7 @@ class Appliance extends Product{
 	}
 
 	extraInfoHTML(){
-		return `<a href="${this.instructionsLink}" target="_blank">Instructions</a>
-		<a href="${this.warrantyLink}" target="_blank">Warranty</a>`
-		
+		return `<a href="${this.instructionsLink}" target="_blank">Instructions</a><a href="${this.warrantyLink}" target="_blank">Warranty</a>`
 	}
 }
 

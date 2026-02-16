@@ -84,10 +84,10 @@ function Cart(localStorageKey){
 }
 
 const cart = Cart('cart-oop')
-const businessCart = Cart('buiness-cart-oop')
+// const businessCart = Cart('buiness-cart-oop')
 
 cart.loadFromStorage()
-businessCart.loadFromStorage()
+// businessCart.loadFromStorage()
 
-console.log(cart)
-console.log(businessCart)
+// console.log(cart)
+// console.log(businessCart)
