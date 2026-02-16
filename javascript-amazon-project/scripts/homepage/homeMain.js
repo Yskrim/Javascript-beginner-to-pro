@@ -1,4 +1,4 @@
-import products, { Product, Clothing } from "../../data/products.js";
+import products from "../../data/products.js";
 import animateAddedToCart from "../utils/animateAddedToCart.js.js";
 import { addToCart, fetchCartQuantity} from "../../data/cart.js"
 

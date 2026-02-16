@@ -722,5 +722,4 @@ const products = productDetails.map(obj => {
 	return new Product(obj)
 })
 
-export { Product, Clothing };
 export default products;
