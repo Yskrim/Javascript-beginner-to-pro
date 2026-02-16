@@ -1,30 +1,30 @@
 class Car {
     #brand;
     #model;
-    #speed;
+    speed;
     isTrunkOpen;
     
     constructor(details){
         this.#brand = details.brand;
         this.#model = details.model;
-        this.#speed = details.speed ?? 0;
+        this.speed = details.speed ?? 0;
         this.isTrunkOpen = details.isTrunkOpen ?? false;
     }
 
     displayInfo(){
-        console.log(`Brand: ${this.#brand}, Model: ${this.#model}, Speed: ${this.#speed} km/h, Trunk: ${this.isTrunkOpen ? 'OPEN' : 'CLOSED'}`);
+        console.log(`Brand: ${this.#brand}, Model: ${this.#model}, Speed: ${this.speed} km/h, Trunk: ${this.isTrunkOpen ? 'OPEN' : 'CLOSED'}`);
     };
 
     go(){
         if(!this.isTrunkOpen){
-            if(this.#speed >= 0 && this.#speed < 200){
-                this.#speed+=5;
+            if(this.speed >= 0 && this.speed < 200){
+                this.speed+=5;
             }
         }
     };
     brake(){
-        if(this.#speed >= 5 && this.#speed <= 200)
-            this.#speed-=5;
+        if(this.speed >= 5 && this.speed <= 200)
+            this.speed-=5;
     };
 
     openTrunk(){
