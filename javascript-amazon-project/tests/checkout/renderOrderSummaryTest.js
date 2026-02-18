@@ -1,10 +1,17 @@
 // this is an integration test because the function we're testing consists of multiple of funcitons and libraries and do not count as a single unit
 import { loadFromStorage, cart } from "../../data/cart.js";
 import renderPage from '../../scripts/checkout.js';
+import { loadProducts } from "../../data/products.js";
 
 
 describe('Test suite: renderOrderSummary', ()=>{
-    const ids = [ 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6', '15b6fc6f-327a-4ec4-896f-486349e85a3d']
+    const ids = [ 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6', '15b6fc6f-327a-4ec4-896f-486349e85a3d'];
+
+    beforeAll((done)=>{
+        loadProducts(()=>{
+            done();
+        });
+    });
 
     beforeEach(()=>{
         document.querySelector('.js-test-container').innerHTML = `

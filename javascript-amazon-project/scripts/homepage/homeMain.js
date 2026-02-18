@@ -1,10 +1,11 @@
-import products from "../../data/products.js";
+import { products, loadProducts } from "../../data/products.js";
 import animateAddedToCart from "../utils/animateAddedToCart.js.js";
 import { addToCart, fetchCartQuantity} from "../../data/cart.js"
 
-
-
 function generateProductsHTML(){
+    const container = document.querySelector('.js-products-grid');
+    if(!container) { return }
+    
     let productsHtml= ''
     products.forEach(p=>{
         const html = `
@@ -64,7 +65,7 @@ function generateProductsHTML(){
         productsHtml += html
     });
 
-    document.querySelector('.js-products-grid').innerHTML = productsHtml;
+    container.innerHTML = productsHtml;
 }
 
 function setupAddHandlers(){
@@ -87,9 +88,8 @@ function setupAddHandlers(){
 }
 
 export default function renderProducts(){
-
     generateProductsHTML();
     setupAddHandlers();
 }
 
-renderProducts()
+loadProducts(renderProducts);
