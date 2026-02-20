@@ -1,7 +1,7 @@
 import { renderOrderSummary, } from "./checkout/orderSummary.js";
 import { renderPaymentSummary } from "./checkout/paymentSummary.js";
 import { renderCheckoutHeader } from './checkout/chekoutHeader.js';
-import { loadProducts } from "../data/products.js";
+import { loadProducts, loadProductsFetch } from "../data/products.js";
 import { loadCart } from "../data/cart.js";
 
 export default function renderPage(){
@@ -13,12 +13,7 @@ export default function renderPage(){
 }
 
 Promise.all([
-    new Promise((resolve)=>{
-        loadProducts(()=>{
-            resolve('value1');
-        });
-    
-    }),
+    loadProductsFetch(),
 
     new Promise((resolve)=>{
         loadCart(()=>{
@@ -27,7 +22,6 @@ Promise.all([
     }),
 
 ]).then((values)=>{
-    console.log(values)
     renderPage();
 });
 
@@ -54,6 +48,7 @@ Promise.all([
 
 
 /*
+    18.2
     PROMISE == built in class, takes a function as param and will run this function immediately
     RESOLVE == function that lets us control when to move to the next step, similar to done().
 

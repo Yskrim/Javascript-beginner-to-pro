@@ -72,6 +72,27 @@ export class Appliance extends Product{
 
 export let products = [];
 
+export function loadProductsFetch(){
+	const promise = fetch(
+		"https://supersimplebackend.dev/products"
+	).then((response)=>{
+		return response.json()
+	}).then((productsData)=>{
+		products = productsData.map(obj => {
+			if(obj.type === 'clothing') return new Clothing(obj);
+			if(obj.keywords.includes('appliances')) return new Appliance(obj);
+			return new Product(obj);
+		})
+		console.log('load products');
+	});
+
+	return promise;
+};
+
+// loadProductsFetch().then(()=>{
+// 	console.log('next step')
+// });
+
 export function loadProducts(fun){
 	const xhr = new XMLHttpRequest();
 
@@ -88,3 +109,9 @@ export function loadProducts(fun){
 	xhr.open('GET', 'https://supersimplebackend.dev/products')
 	xhr.send();
 }
+
+/* 18.3
+    FETCH() -- better way to call the HTTP REQUESTS, uses a promise instead of callback and eventlistener
+
+	by default makes a "GET" request and only takes the url
+*/
