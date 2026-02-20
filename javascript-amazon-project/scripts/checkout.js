@@ -12,43 +12,86 @@ export default function renderPage(){
     }
 }
 
-Promise.all([
-    loadProductsFetch(),
+async function loadPage(){
+    await loadProductsFetch();
 
-    new Promise((resolve)=>{
+    const value = await new Promise((resolve)=>{
         loadCart(()=>{
             resolve('value2');
         });
-    }),
+    })
 
-]).then((values)=>{
     renderPage();
-});
+}
+
+loadPage();
+
+/*  ABOVE CODE IS THE SAME AS:
+
+    function loadPage(){
+        return new Promise((resolve)=>{
+            console.log('load page')
+            resolve();
+
+        }).then(()=>{
+            return loadProductsFetch();    
+
+        }).then(()=>{
+            return new Promise((resolve)=>{
+                resolve('value2')    
+            });
+        });
+    }
+*/
 
 
-// new Promise((resolve)=>{
-//     loadProducts(()=>{
-//         resolve('value1');
-//     });
 
-// }).then((value)=>{
-//     console.log(value);
+/*  PROMISE.ALL() EXAMPLE
 
-//     return new Promise((resolve)=>{
-//         loadCart(()=>{
-//             resolve();
-//         });
-//     });
+    Promise.all([
+        loadProductsFetch(),
 
-// }).then(()=>{
-//     renderPage();
-// });
+        new Promise((resolve)=>{
+            loadCart(()=>{
+                resolve('value2');
+            });
+        }),
 
+    ]).then((values)=>{
+        renderPage();
+    });
 
+*/
 
 
-/*
-    18.2
+
+/*  LINKED PROMISES EXAMPLE
+
+    new Promise((resolve)=>{
+        loadProducts(()=>{
+            resolve('value1');
+        });
+
+    }).then((value)=>{
+        console.log(value);
+
+        return new Promise((resolve)=>{
+            loadCart(()=>{
+                resolve();
+            });
+        });
+
+    }).then(()=>{
+        renderPage();
+    });
+
+*/
+
+
+
+
+/*  LESSON 18.2
+
     PROMISE == built in class, takes a function as param and will run this function immediately
     RESOLVE == function that lets us control when to move to the next step, similar to done().
 
@@ -74,4 +117,11 @@ Promise.all([
 
     PROMISE.ALL() -- feature that allows to create an array of promises that will then create their own threads and be run simultaneously.
     Just like with the regular promise, there is a .then(values) method, where values is the array of the values passed from the resolves of each promise. Good for returning the values and codes for the fetch operations.
+*/
+
+/*
+    18.3 ASYNC AWAIT
+
+
+
 */
