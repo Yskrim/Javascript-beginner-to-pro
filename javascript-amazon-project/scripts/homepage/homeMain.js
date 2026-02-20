@@ -91,5 +91,3 @@ export default function renderProducts(){
     generateProductsHTML();
     setupAddHandlers();
 }
-
-loadProducts(renderProducts);
