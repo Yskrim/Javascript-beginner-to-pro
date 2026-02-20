@@ -13,13 +13,23 @@ export default function renderPage(){
 }
 
 async function loadPage(){
-    await loadProductsFetch();
+    try {
+        //throw "error1";
+        await loadProductsFetch();
 
-    const value = await new Promise((resolve)=>{
-        loadCart(()=>{
-            resolve('value2');
+        const value = await new Promise((resolve, reject)=>{
+            //throw "error2" // -- sync error == expected error
+            loadCart(()=>{
+                // reject("error3"); // -- async error == unexpected error in the future
+                resolve('value3');
+            });
         });
-    })
+    } catch (error) {
+        console.log("Unexpected error. Please try again later.\nError code:", error)
+    }
+
+
+    
 
     renderPage();
 }
