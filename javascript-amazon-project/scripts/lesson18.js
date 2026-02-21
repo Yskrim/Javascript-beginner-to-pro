@@ -1,12 +1,7 @@
-const xhr = new XMLHttpRequest();
-
-xhr.addEventListener("load", ()=>{
-    console.log(xhr.response)
-});
-
-xhr.addEventListener('error', ()=>{
-    console.log("Unexpected error.\n", error);
-});
-
-xhr.open("GET", "https://supersimplebackend.dev/greeting");
-xhr.send();
+const request = fetch(
+    "https://supersimplebackend.dev/greeting"
+).then((response)=>{
+    return response.text()
+}).then((text)=>{
+    console.log(text)
+})
