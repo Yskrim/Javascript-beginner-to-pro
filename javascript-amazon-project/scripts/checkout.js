@@ -14,8 +14,10 @@ export default function renderPage(){
 
 async function loadPage(){
     try {
-        await loadProductsFetch()
-        await loadCartFetch(),
+        await Promise.all([
+            loadProductsFetch(),
+            loadCartFetch(),
+        ])
         renderPage()
     } catch (error) {
         console.log("Unexpected error. Please try again later.\nError code:", error)
