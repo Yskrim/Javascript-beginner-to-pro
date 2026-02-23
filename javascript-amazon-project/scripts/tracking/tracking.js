@@ -2,7 +2,7 @@ import renderHeader from "../homepage/homeHeader.js";
 import { products, loadProductsFetch } from "../../data/products.js";
 import { orders } from "../../data/orders.js";
 import dayjs from "https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js";
-
+import { calculateShipmentProgress, getShipmentStatus } from "../utils/calculateShipmentStatus.js";
 
 
 
@@ -17,10 +17,15 @@ function renderTrackingPage(){
     const order = orders.find(or=>or.id===orderId);
     const orderProduct = order.products.find(op=>op.productId === product.id)
 
-    console.log(product)
-    console.log(order)
-    console.log(orderProduct)
+    // console.log(product)
+    // console.log(order)
+    // console.log(orderProduct)
 
+    const ct = dayjs()
+    const dt = dayjs(orderProduct.estimatedDeliveryTime)
+    const ot = dayjs(order.orderTime)
+    
+    const progress = calculateShipmentProgress(ct, ot, dt) * 100;
 
     document.querySelector('.js-main').innerHTML = `
         <div class="order-tracking">
@@ -46,7 +51,7 @@ function renderTrackingPage(){
                 <div class="progress-label">
                     Preparing
                 </div>
-                <div class="progress-label current-status">
+                <div class="progress-label ">
                     Shipped
                 </div>
                 <div class="progress-label">
@@ -55,13 +60,21 @@ function renderTrackingPage(){
             </div>
 
             <div class="progress-bar-container">
-                <div class="progress-bar"></div>
+                <div class="progress-bar" style="width: ${progress}%;"></div>
             </div>
         </div>
     `
+
+    document.querySelectorAll(".progress-label").forEach(label=>{
+        if(label.innerHTML.trim() === getShipmentStatus(progress))
+            label.classList.add('current-status');
+    })
 }
 
 await loadProductsFetch().then(()=>{
     renderHeader();
     renderTrackingPage();
 })
+
+
+
