@@ -18,7 +18,7 @@ async function loadPage(){
             loadProductsFetch(),
             loadCartFetch(),
         ])
-        renderPage()
+        renderPage();
     } catch (error) {
         console.log("Unexpected error. Please try again later.\nError code:", error)
     }
@@ -43,9 +43,6 @@ loadPage();
     });
 
 */
-
-
-
 /*  LINKED PROMISES EXAMPLE
 
     new Promise((resolve)=>{
@@ -67,10 +64,6 @@ loadPage();
     });
 
 */
-
-
-
-
 /*  LESSON 18.2
 
     PROMISE == built in class, takes a function as param and will run this function immediately
@@ -99,7 +92,6 @@ loadPage();
     PROMISE.ALL() -- feature that allows to create an array of promises that will then create their own threads and be run simultaneously.
     Just like with the regular promise, there is a .then(values) method, where values is the array of the values passed from the resolves of each promise. Good for returning the values and codes for the fetch operations.
 */
-
 /*
     18.3 ASYNC AWAIT
 

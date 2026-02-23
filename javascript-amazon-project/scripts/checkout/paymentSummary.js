@@ -67,7 +67,7 @@ export function renderPaymentSummary(){
 				});
 	
 				const order = await responce.json()
-				// console.log(order)
+				console.log(order);
 				addOrder(order);
 			} catch(error) {
 				console.log("Unexpected error while trying to place the order. Try again later.\nError:", error);
