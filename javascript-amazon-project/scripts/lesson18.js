@@ -1,18 +1,28 @@
-async function amazon(){
+async function pg(){
     try {
-        return await fetch("https://amazon.com")
+        return await fetch("https://supersimplebackend.dev/greeting", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
         .then((response)=>{
+            if(response.status >= 400){
+                throw response;
+            }
             return response.text();
         }).then((text)=>{
             console.log(text);
         });
     } catch(error) {
-        console.log(
-`CORS error.Your request has been blocked by the backend.
-Message:
-${error}`
-        );
+        if(error.status === 400){
+            return await error.json()
+            .then((json)=>{
+                console.log(json.errorMessage);
+            })
+        }
+        console.log("Network error. Please try again later.")
     }
 }
 
-amazon();
+pg();
