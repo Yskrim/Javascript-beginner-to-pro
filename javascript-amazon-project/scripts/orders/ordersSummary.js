@@ -2,6 +2,9 @@ import renderHeader from "../homepage/homeHeader.js";
 import { orders } from "../../data/orders.js"
 import { products, loadProductsFetch } from "../../data/products.js";
 import formatPrice from "../utils/priceFormat.js";
+import dayjs from "https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js";
+import { addToCart } from "../../data/cart.js";
+
 
 console.log(orders);
 
@@ -16,7 +19,7 @@ function generateOrdersHtml(orders){
             <div class="order-header-left-section">
                 <div class="order-date">
                     <div class="order-header-label">Order Placed:</div>
-                    <div>${order.orderTime}</div>
+                    <div>${dayjs(order.orderTime).format("DD MMMM YYYY, HH:mm:ss")}</div>
                 </div>
                 <div class="order-total">
                     <div class="order-header-label">Total:</div>
@@ -51,12 +54,12 @@ function generateOrderProducts(orders){
                         ${cur.name}
                     </div>
                     <div class="product-delivery-date">
-                        ${orderProduct.estimatedDeliveryTime}
+                        ${dayjs(orderProduct.estimatedDeliveryTime).format("DD MMMM YYYY")}
                     </div>
                     <div class="product-quantity">
-                        ${orderProduct.quantity}
+                        Quantity: ${orderProduct.quantity}
                     </div>
-                    <button class="buy-again-button button-primary">
+                    <button class="buy-again-button button-primary" data-product-id="${orderProduct.productId}">
                         <img class="buy-again-icon" src="images/icons/buy-again.png">
                         <span class="buy-again-message">Buy it again</span>
                     </button>
@@ -76,6 +79,29 @@ function generateOrderProducts(orders){
 }
 
 
+function setupBuyAgainHandlers(){
+    document.querySelectorAll('.buy-again-button')
+    .forEach(btn=>btn.addEventListener('click', ()=>{
+        const { productId } = btn.dataset;
+        // console.log(productId)
+        addToCart(productId);
+        renderHeader();
+        const btntext = btn.innerHTML;
+        btn.innerHTML = 'Added to cart';
+        setTimeout(()=>{
+            btn.innerHTML = btntext;
+        }, 500);
+    }))
+}
+
+function setupTrackItemHandlers(){
+    document.querySelectorAll('.track-package-button')
+    .addEventListener('click', (e)=>{
+        e.preventDefault();
+        console.log(window.href)
+    })
+}
+
 renderHeader();
 
 async function loadPage(){
@@ -83,6 +109,7 @@ async function loadPage(){
         await loadProductsFetch().then(()=>{
             generateOrdersHtml(orders);
             generateOrderProducts(orders);
+            setupBuyAgainHandlers();
         })
     } catch (error) {
         console.log("Unexpected error. Please try again later.\nError code:", error)
