@@ -1,8 +1,8 @@
 import { renderOrderSummary, } from "./checkout/orderSummary.js";
 import { renderPaymentSummary } from "./checkout/paymentSummary.js";
 import { renderCheckoutHeader } from './checkout/chekoutHeader.js';
-import { loadProducts, loadProductsFetch } from "../data/products.js";
-import { loadCart } from "../data/cart.js";
+import { loadProductsFetch } from "../data/products.js";
+import { loadCartFetch } from "../data/cart.js";
 
 export default function renderPage(){
     if (document.querySelector('.js-checkout-header')) {
@@ -14,46 +14,15 @@ export default function renderPage(){
 
 async function loadPage(){
     try {
-        //throw "error1";
-        await loadProductsFetch();
-
-        const value = await new Promise((resolve, reject)=>{
-            //throw "error2" // -- sync error == expected error
-            loadCart(()=>{
-                // reject("error3"); // -- async error == unexpected error in the future
-                resolve('value3');
-            });
-        });
+        await loadProductsFetch()
+        await loadCartFetch(),
+        renderPage()
     } catch (error) {
         console.log("Unexpected error. Please try again later.\nError code:", error)
     }
-
-
-    
-
-    renderPage();
 }
 
 loadPage();
-
-/*  ABOVE CODE IS THE SAME AS:
-
-    function loadPage(){
-        return new Promise((resolve)=>{
-            console.log('load page')
-            resolve();
-
-        }).then(()=>{
-            return loadProductsFetch();    
-
-        }).then(()=>{
-            return new Promise((resolve)=>{
-                resolve('value2')    
-            });
-        });
-    }
-*/
-
 
 
 /*  PROMISE.ALL() EXAMPLE
