@@ -1,4 +1,6 @@
 import { fetchCartQuantity } from "../../data/cart.js";
+import { Product, products } from "../../data/products.js";
+import renderProducts from "./homeMain.js";
 
 function generateHeaderHTML(){
     const headerContainerHTML = `
@@ -13,11 +15,14 @@ function generateHeaderHTML(){
             </div>
 
             <div class="amazon-header-middle-section">
-                <input class="search-bar" type="text" placeholder="Search">
 
-                <button class="search-button">
-                <img class="search-icon" src="images/icons/search-icon.png">
-                </button>
+                <form action="amazon.html" method="get" class="amazon-header-middle-section js-search">
+                    <input class="search-bar js-search-bar" type="text" placeholder="Search" name="search">
+                    <button class="search-button" type="submit">
+                        <img class="search-icon" src="images/icons/search-icon.png">
+                    </button>
+                </form>
+
             </div>
 
             <div class="amazon-header-right-section">
@@ -38,5 +43,24 @@ function generateHeaderHTML(){
 }
 
 export default function renderHeader(){
-    document.querySelector('.js-header').innerHTML = generateHeaderHTML()
+    document.querySelector('.js-header').innerHTML = generateHeaderHTML();
+    setupSearchHandler();
+
+}
+
+export function setupSearchHandler(){
+    document.querySelector(".js-search-bar").addEventListener("input", (e)=>{
+        e.preventDefault();
+        const searchParam = document.querySelector(".js-search-bar").value;
+
+        if(!searchParam)
+            renderProducts(products);
+
+        const newProducts = [];
+        products.forEach(p=>{
+            if(p.name.toLowerCase().includes(searchParam.toLowerCase()))
+                newProducts.push(p);
+        })
+        renderProducts(newProducts);
+    })
 }

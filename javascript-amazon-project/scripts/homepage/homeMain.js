@@ -2,7 +2,7 @@ import { products, loadProducts } from "../../data/products.js";
 import animateAddedToCart from "../utils/animateAddedToCart.js.js";
 import { addToCart, fetchCartQuantity} from "../../data/cart.js"
 
-function generateProductsHTML(){
+function generateProductsHTML(products){
     const container = document.querySelector('.js-products-grid');
     if(!container) { return }
     
@@ -87,7 +87,7 @@ function setupAddHandlers(){
     });
 }
 
-export default function renderProducts(){
-    generateProductsHTML();
+export default function renderProducts(products){
+    generateProductsHTML(products);
     setupAddHandlers();
 }
