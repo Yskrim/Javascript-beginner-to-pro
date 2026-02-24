@@ -15,14 +15,10 @@ function generateHeaderHTML(){
             </div>
 
             <div class="amazon-header-middle-section">
-
-                <form action="amazon.html" method="get" class="amazon-header-middle-section js-search">
-                    <input class="search-bar js-search-bar" type="text" placeholder="Search" name="search">
-                    <button class="search-button" type="submit">
-                        <img class="search-icon" src="images/icons/search-icon.png">
-                    </button>
-                </form>
-
+                <input class="search-bar js-search-bar" type="text" placeholder="Search" name="search">
+                <button class="search-button" type="submit">
+                    <img class="search-icon" src="images/icons/search-icon.png">
+                </button>
             </div>
 
             <div class="amazon-header-right-section">
