@@ -1,4 +1,4 @@
-import { cart, fetchCartQuantity } from "../../data/cart.js";
+import { cart, clearCart, fetchCartQuantity } from "../../data/cart.js";
 import { getProduct } from "../../data/products.js";
 import { getDeliveryOption } from '../../data/deliveryOptions.js';
 import formatPrice from "../utils/priceFormat.js";
@@ -56,7 +56,7 @@ export function renderPaymentSummary(){
     document.querySelector('.js-place-order-button')
 		.addEventListener('click', async ()=>{
 			try{
-				const responce = await fetch("https://supersimplebackend.dev/orders", {
+				const response = await fetch("https://supersimplebackend.dev/orders", {
 					method: "POST",
 					headers: {
 						"Content-Type": "application/json",
@@ -66,7 +66,7 @@ export function renderPaymentSummary(){
 					})
 				});
 	
-				const order = await responce.json()
+				const order = await response.json()
 				console.log(order);
 				addOrder(order);
 			} catch(error) {
@@ -74,5 +74,6 @@ export function renderPaymentSummary(){
 			}
 
 			window.location.href = "orders.html"
+			clearCart();
 		});
 }

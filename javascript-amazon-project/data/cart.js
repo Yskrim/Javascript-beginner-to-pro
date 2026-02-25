@@ -48,6 +48,10 @@ function removeFromCart(productId){
     }
 }
 
+function clearCart(){
+    localStorage.setItem('cart', JSON.stringify([]));
+}
+
 function updateQuantityInStorage(productId, qty){
     cart = cart.map(item => 
         item.productId === productId 
@@ -92,4 +96,4 @@ export function loadCart(fun){
 	xhr.send();
 }
 
-export { cart, addToCart, loadFromStorage, fetchCartQuantity, removeFromCart, updateCartQuantity, updateQuantityInStorage, saveToStorage, updateDeliveryOption }
+export { cart, addToCart, clearCart, loadFromStorage, fetchCartQuantity, removeFromCart, updateCartQuantity, updateQuantityInStorage, saveToStorage, updateDeliveryOption }

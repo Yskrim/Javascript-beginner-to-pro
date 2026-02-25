@@ -9,6 +9,7 @@ export default function renderPage(){
         renderCheckoutHeader();
         renderOrderSummary();
         renderPaymentSummary();
+        clearCart();
     }
 }
 
