@@ -9,14 +9,14 @@ function generateProductsHTML(products){
     let productsHtml= ''
     products.forEach(p=>{
         const html = `
-            <div class="product-container js-product-container-"${p.id}">
+            <div class="product-container js-product-container" data-product-id="${p.id}">
                 <div class="product-image-container">
                     <img class="product-image"
                     src=${p.image}>
                 </div>
     
                 <div class="product-name limit-text-to-2-lines">
-                    <a href="productPage.html?orderId=${p.id}">
+                    <a href="productPage.html?productId=${p.id}">
                         ${p.name}
                     </a>
                 </div>
@@ -90,11 +90,12 @@ function setupAddHandlers(){
 }
 
 function setupRedirectHandlers(){
-    document.querySelectorAll('.product-container').forEach(cont=>{
-        cont.querySelector('img').addEventListener('click', (e)=>{         
-            window.location = 'productPage.html';
-        })
-    })
+    document.querySelectorAll('.product-container').forEach(cont => {
+        const productId = cont.dataset.productId;
+        cont.querySelector('.product-image').addEventListener('click', () => {
+            window.location = `productPage.html?productId=${productId}`;
+        });
+    });
 }
 
 export default function renderProducts(products){
