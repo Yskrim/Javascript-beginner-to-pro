@@ -1,6 +1,4 @@
-.body{
-  
-}
+
 
 .main {
   margin: 100px auto;
@@ -20,7 +18,7 @@
 @media (max-width: 800px) {
   .main{
     width: 100%;
-    margin: 0 auto;
+    margin: 80px auto;
     max-width: 60vw;
   }
   .product-page {
@@ -34,7 +32,7 @@
 @media (min-width: 800px) {
   .main{
     width: 80vw;
-    margin: 0 auto;
+    margin: 100px auto;
     max-width: 600px;
   }
   .product-page {
