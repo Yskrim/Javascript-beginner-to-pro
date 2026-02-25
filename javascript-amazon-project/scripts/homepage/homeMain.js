@@ -9,14 +9,16 @@ function generateProductsHTML(products){
     let productsHtml= ''
     products.forEach(p=>{
         const html = `
-            <div class="product-container ">
+            <div class="product-container js-product-container-"${p.id}">
                 <div class="product-image-container">
                     <img class="product-image"
                     src=${p.image}>
                 </div>
     
                 <div class="product-name limit-text-to-2-lines">
-                    ${p.name}
+                    <a href="productPage.html?orderId=${p.id}">
+                        ${p.name}
+                    </a>
                 </div>
     
                 <div class="product-rating-container">
@@ -87,7 +89,16 @@ function setupAddHandlers(){
     });
 }
 
+function setupRedirectHandlers(){
+    document.querySelectorAll('.product-container').forEach(cont=>{
+        cont.querySelector('img').addEventListener('click', (e)=>{         
+            window.location = 'productPage.html';
+        })
+    })
+}
+
 export default function renderProducts(products){
     generateProductsHTML(products);
     setupAddHandlers();
+    setupRedirectHandlers();
 }
