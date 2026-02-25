@@ -12,6 +12,8 @@ body {
   gap: 40px;
   display: flex;
   flex-direction: column;
+  margin: 70px auto;
+
 }
 
 .product-page {
@@ -38,7 +40,6 @@ body {
 @media (min-width: 800px) {
   .main{
     width: 80vw;
-    margin: 70px auto;
     max-width: 600px;
   }
   .product-page {
