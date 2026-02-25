@@ -1,6 +1,9 @@
 .main {
-  margin-top: 100px;
-  margin-bottom: 100px;
+  width: 60vw;
+  margin: 100px auto;
+  gap: 40px;
+  display: flex;
+  flex-direction: column;
 }
 
 .product-page {
@@ -10,8 +13,20 @@
   margin: 0 auto;
 }
 
+@media (max-width: 768px) {
+  .product-page {
+    flex-direction: column;
+  }
+}
+
+
 .product-page-image-container {
-  flex-shrink: 0;
+  flex-shrink: 1;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
 }
 
 .product-page-image {
@@ -61,6 +76,8 @@
 }
 
 .product-page-description {
+  width: 60vw;
+  margin: 0 auto;
   margin-top: 24px;
   padding-top: 24px;
   border-top: 1px solid rgb(213, 217, 217);
