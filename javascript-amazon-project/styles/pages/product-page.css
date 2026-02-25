@@ -1,11 +1,17 @@
+body {
+  margin: 0;
+}
 
+.back-to-products-link {
+  margin-bottom: 20px;
+  font-size: 14px;
+}
 
 .main {
-  margin: 100px auto;
+  margin: 0 auto;
   gap: 40px;
   display: flex;
   flex-direction: column;
-
 }
 
 .product-page {
@@ -18,7 +24,7 @@
 @media (max-width: 800px) {
   .main{
     width: 100%;
-    margin: 80px auto;
+    /* margin: 60px auto; */
     max-width: 60vw;
   }
   .product-page {
@@ -32,7 +38,7 @@
 @media (min-width: 800px) {
   .main{
     width: 80vw;
-    margin: 100px auto;
+    margin: 70px auto;
     max-width: 600px;
   }
   .product-page {

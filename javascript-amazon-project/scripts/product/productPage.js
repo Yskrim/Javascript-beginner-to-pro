@@ -1,5 +1,5 @@
 import renderHeader from "../homepage/homeHeader.js";
-import { loadProducts, getProduct } from "../../data/products.js";
+import { loadProductsFetch, getProduct } from "../../data/products.js";
 import { addToCart, fetchCartQuantity } from "../../data/cart.js";
 
 function renderProduct(product) {
@@ -21,13 +21,13 @@ function setupAddToCartHandler() {
     const productId = button.dataset.productId;
     const quantity = parseInt(document.getElementById(productId).value);
     addToCart(productId, quantity);
-    document.querySelector(".cart-quantity").innerHTML = fetchCartQuantity();
+    renderHeader()
   });
 }
 
 renderHeader();
 
-loadProducts(() => {
+await loadProductsFetch().then(() => {
   const params = new URLSearchParams(window.location.search);
   const productId = params.get("productId");
   const product = productId ? getProduct(productId) : null;
